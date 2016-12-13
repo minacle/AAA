@@ -19,6 +19,9 @@ public struct AAA {
     public subscript(v: Any) -> AAA {
         if let o = o as? [Any] {
             if let v = v as? Int {
+                guard v < o.endIndex else {
+                    return AAA()
+                }
                 return AAA(o[v])
             }
         }
