@@ -1,13 +1,17 @@
 import Swift
 
-/// An Any Accessory.
+/// An `Any` Accessory.
 public struct AAA {
     private let o: Any?
 
+    /// Decorate `nil` with an accessory.
     public init() {
         self.o = nil
     }
 
+    /// Decorate `Any` with an accessory.
+    ///
+    /// - Parameter o: `Any`thing.
     public init(_ o: Any?) {
         self.o = o
     }
