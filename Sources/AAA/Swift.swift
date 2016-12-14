@@ -1,4 +1,4 @@
-import Swift  // 3.0.1
+import Swift // 3.0.2
 
 extension AnyBidirectionalCollection {
 
@@ -394,16 +394,6 @@ extension Float {
 
     public init?(_ a: AAA) {
         guard let o = a[] as? Float else {
-            return nil
-        }
-        self = o
-    }
-}
-
-extension Float80 {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? Float80 else {
             return nil
         }
         self = o
