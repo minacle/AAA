@@ -365,16 +365,6 @@ extension String.Encoding {
     }
 }
 
-extension StringEncodingDetectionOptionsKey {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? StringEncodingDetectionOptionsKey else {
-            return nil
-        }
-        self = o
-    }
-}
-
 extension TimeZone {
 
     public init?(_ a: AAA) {
