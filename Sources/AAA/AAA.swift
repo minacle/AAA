@@ -42,7 +42,11 @@ public struct AAA {
         guard let o = o, type(of: o) is AnyClass else {
             return nil
         }
-        return o as AnyObject
+        #if os(Linux)
+            return o as? AnyObject
+        #else
+            return o as AnyObject
+        #endif
     }
 
     /// Return value if type of `Any` is a value.
