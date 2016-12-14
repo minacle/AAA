@@ -10,7 +10,7 @@ import Swift // 3.0.2
         "AnySequence": {},
         "Array": {},
         "ArraySlice": {},
-        "AutoreleasingUnsafeMutablePointer": {},
+      # "AutoreleasingUnsafeMutablePointer": {},
         "BidirectionalSlice": {},
         "Bool": {},
         "CVaListPointer": {},
