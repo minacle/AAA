@@ -1,0 +1,102 @@
+import Foundation // 3.0.2
+%{
+    types = {
+        "Calendar": {},
+        "CharacterSet": {},
+        "CocoaError": {},
+        "CocoaError.Code": {},
+        "Data": {},
+        "Data.Iterator": {},
+        "Date": {},
+        "DateComponents": {},
+        "DateInterval": {
+            "available": "OSX 10.12, *",
+        },
+        "ErrorUserInfoKey": {},
+        "FileAttributeKey": {},
+        "FileAttributeType": {},
+        "FileProtectionType": {},
+        "HTTPCookiePropertyKey": {},
+        "IndexPath": {},
+        "IndexSet": {},
+        "IndexSet.Index": {},
+        "IndexSet.RangeView": {},
+        "Locale": {},
+        "MachError": {},
+        "Measurement": {
+            "available": "OSX 10.12, *",
+        },
+        "ProcessInfo.ActivityOptions": {},
+        "ByteCountFormatter.Units": {},
+        "DateComponentsFormatter.ZeroFormattingBehavior": {},
+        "FileManager.DirectoryEnumerationOptions": {},
+        "FileManager.ItemReplacementOptions": {},
+        "FileManager.UnmountOptions": {},
+        "FileWrapper.ReadingOptions": {},
+        "FileWrapper.WritingOptions": {},
+        "ISO8601DateFormatter.Options": {},
+        "JSONSerialization.ReadingOptions": {},
+        "JSONSerialization.WritingOptions": {},
+        "MeasurementFormatter.UnitOptions": {},
+        "NetService.Options": {},
+        "NotificationQueue.NotificationCoalescing": {},
+        "OperatingSystemVersion": {},
+        "PersonNameComponentsFormatter.Options": {
+            "available": "OSX 10.12, *",
+        },
+        "PropertyListSerialization.MutabilityOptions": {},
+        "Stream.Event": {},
+        "FileManager.VolumeEnumerationOptions": {},
+        "Notification": {},
+        "POSIXError": {},
+        "PersonNameComponents": {
+            "available": "OSX 10.11, *",
+        },
+        "Progress.FileOperationKind": {},
+        "ProgressKind": {},
+        "ProgressUserInfoKey": {},
+        "RunLoopMode": {
+            "available": "OSX 10.12, *",
+        },
+        "Stream.PropertyKey": {},
+        "StreamNetworkServiceTypeValue": {},
+        "StreamSOCKSProxyConfiguration": {},
+        "StreamSOCKSProxyVersion": {},
+        "StreamSocketSecurityLevel": {},
+        "String.Encoding": {},
+        "StringEncodingDetectionOptionsKey": {},
+        "StringTransform": {},
+        "TimeZone": {},
+        "URL": {},
+        "URLComponents": {},
+        "URLError": {},
+        "URLFileProtection": {},
+        "URLFileResourceType": {},
+        "URLQueryItem": {},
+        "URLRequest": {},
+        "URLResourceKey": {},
+        "URLResourceValues": {},
+        "URLThumbnailDictionaryItem": {},
+        "URLThumbnailSizeKey": {},
+        "URLUbiquitousItemDownloadingStatus": {},
+        "UUID": {},
+    }
+}%
+% for type in sorted(types.keys()):
+%{
+    attributes = types[type]
+}%
+
+% if "available" in attributes:
+@available(${attributes["available"]})
+% end
+extension ${type} {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? ${type} else {
+            return nil
+        }
+        self = o
+    }
+}
+% end
