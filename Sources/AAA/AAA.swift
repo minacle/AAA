@@ -36,6 +36,22 @@ public struct AAA {
         }
         return AAA()
     }
+
+    /// Return object if type of `Any` is an object.
+    public var object: AnyObject? {
+        guard let o = o, type(of: o) is AnyClass else {
+            return nil
+        }
+        return o as AnyObject
+    }
+
+    /// Return value if type of `Any` is a value.
+    public var value: Any? {
+        guard let o = o, !(type(of: o) is AnyClass) else {
+            return nil
+        }
+        return o
+    }
 }
 
 extension AAA: ExpressibleByArrayLiteral {

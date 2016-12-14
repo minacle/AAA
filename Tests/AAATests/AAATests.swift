@@ -65,4 +65,20 @@ class AAATests: XCTestCase {
         XCTAssertEqual(a[0.0][] as! StringLiteralType, "a")
         XCTAssertEqual(a[0][0][] as! FloatLiteralType, 1.0)
     }
+
+    class AClass {}
+
+    func testObject() {
+        let a = AAA(AClass())
+        XCTAssertNotNil(a.object)
+        XCTAssertNil(a.value)
+    }
+
+    struct AStruct {}
+
+    func testValue() {
+        let a = AAA(AStruct())
+        XCTAssertNil(a.object)
+        XCTAssertNotNil(a.value)
+    }
 }
