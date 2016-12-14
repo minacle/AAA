@@ -1,9 +1,7 @@
 language: swift
-matrix:
-  include:
-    - os: linux
-      dist: trusty
-    - os: osx
-      osx_image: xcode8.2
+
+- os: osx
+  osx_image: xcode8.2
+
 script:
   - swift test
