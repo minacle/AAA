@@ -1,0 +1,10 @@
+language: swift
+matrix:
+  include:
+    - os: linux
+      language: generic
+      dist: trusty
+    - os: osx
+      osx_image: xcode8.2
+script:
+  - swift test
