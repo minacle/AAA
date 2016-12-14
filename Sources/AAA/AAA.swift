@@ -43,7 +43,7 @@ public struct AAA {
             return nil
         }
         #if os(Linux)
-            return o as! AnyObject
+            return o as? AnyObject
         #else
             return o as AnyObject
         #endif
