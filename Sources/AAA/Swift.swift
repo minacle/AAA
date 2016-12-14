@@ -90,16 +90,6 @@ extension ArraySlice {
     }
 }
 
-extension AutoreleasingUnsafeMutablePointer {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? AutoreleasingUnsafeMutablePointer else {
-            return nil
-        }
-        self = o
-    }
-}
-
 extension BidirectionalSlice {
 
     public init?(_ a: AAA) {
