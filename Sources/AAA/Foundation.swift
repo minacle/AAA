@@ -111,66 +111,6 @@ extension DateInterval {
     }
 }
 
-extension ErrorUserInfoKey {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? ErrorUserInfoKey else {
-            return nil
-        }
-        self = o
-    }
-}
-
-extension FileAttributeKey {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? FileAttributeKey else {
-            return nil
-        }
-        self = o
-    }
-}
-
-extension FileAttributeType {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? FileAttributeType else {
-            return nil
-        }
-        self = o
-    }
-}
-
-extension FileManager.DirectoryEnumerationOptions {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? FileManager.DirectoryEnumerationOptions else {
-            return nil
-        }
-        self = o
-    }
-}
-
-extension FileManager.ItemReplacementOptions {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? FileManager.ItemReplacementOptions else {
-            return nil
-        }
-        self = o
-    }
-}
-
-extension FileManager.UnmountOptions {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? FileManager.UnmountOptions else {
-            return nil
-        }
-        self = o
-    }
-}
-
 extension FileManager.VolumeEnumerationOptions {
 
     public init?(_ a: AAA) {
@@ -181,50 +121,10 @@ extension FileManager.VolumeEnumerationOptions {
     }
 }
 
-extension FileProtectionType {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? FileProtectionType else {
-            return nil
-        }
-        self = o
-    }
-}
-
-extension FileWrapper.ReadingOptions {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? FileWrapper.ReadingOptions else {
-            return nil
-        }
-        self = o
-    }
-}
-
-extension FileWrapper.WritingOptions {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? FileWrapper.WritingOptions else {
-            return nil
-        }
-        self = o
-    }
-}
-
 extension HTTPCookiePropertyKey {
 
     public init?(_ a: AAA) {
         guard let o = a[] as? HTTPCookiePropertyKey else {
-            return nil
-        }
-        self = o
-    }
-}
-
-extension ISO8601DateFormatter.Options {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? ISO8601DateFormatter.Options else {
             return nil
         }
         self = o
@@ -301,16 +201,6 @@ extension Locale {
     }
 }
 
-extension MachError {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? MachError else {
-            return nil
-        }
-        self = o
-    }
-}
-
 @available(OSX 10.12, *)
 extension Measurement {
 
@@ -332,30 +222,10 @@ extension MeasurementFormatter.UnitOptions {
     }
 }
 
-extension NetService.Options {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? NetService.Options else {
-            return nil
-        }
-        self = o
-    }
-}
-
 extension Notification {
 
     public init?(_ a: AAA) {
         guard let o = a[] as? Notification else {
-            return nil
-        }
-        self = o
-    }
-}
-
-extension NotificationQueue.NotificationCoalescing {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? NotificationQueue.NotificationCoalescing else {
             return nil
         }
         self = o
@@ -398,46 +268,6 @@ extension PersonNameComponentsFormatter.Options {
 
     public init?(_ a: AAA) {
         guard let o = a[] as? PersonNameComponentsFormatter.Options else {
-            return nil
-        }
-        self = o
-    }
-}
-
-extension ProcessInfo.ActivityOptions {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? ProcessInfo.ActivityOptions else {
-            return nil
-        }
-        self = o
-    }
-}
-
-extension Progress.FileOperationKind {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? Progress.FileOperationKind else {
-            return nil
-        }
-        self = o
-    }
-}
-
-extension ProgressKind {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? ProgressKind else {
-            return nil
-        }
-        self = o
-    }
-}
-
-extension ProgressUserInfoKey {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? ProgressUserInfoKey else {
             return nil
         }
         self = o
@@ -545,16 +375,6 @@ extension StringEncodingDetectionOptionsKey {
     }
 }
 
-extension StringTransform {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? StringTransform else {
-            return nil
-        }
-        self = o
-    }
-}
-
 extension TimeZone {
 
     public init?(_ a: AAA) {
@@ -589,16 +409,6 @@ extension URLError {
 
     public init?(_ a: AAA) {
         guard let o = a[] as? URLError else {
-            return nil
-        }
-        self = o
-    }
-}
-
-extension URLFileProtection {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? URLFileProtection else {
             return nil
         }
         self = o
@@ -649,36 +459,6 @@ extension URLResourceValues {
 
     public init?(_ a: AAA) {
         guard let o = a[] as? URLResourceValues else {
-            return nil
-        }
-        self = o
-    }
-}
-
-extension URLThumbnailDictionaryItem {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? URLThumbnailDictionaryItem else {
-            return nil
-        }
-        self = o
-    }
-}
-
-extension URLThumbnailSizeKey {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? URLThumbnailSizeKey else {
-            return nil
-        }
-        self = o
-    }
-}
-
-extension URLUbiquitousItemDownloadingStatus {
-
-    public init?(_ a: AAA) {
-        guard let o = a[] as? URLUbiquitousItemDownloadingStatus else {
             return nil
         }
         self = o
