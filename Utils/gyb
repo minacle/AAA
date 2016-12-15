@@ -1,3 +1,11 @@
 #!/usr/bin/env python2.7
-import gyb
+
+try:
+    import gyb
+except:
+    with open(__file__ + ".py", "w") as l:
+        from urllib2 import urlopen
+        r = urlopen("https://raw.githubusercontent.com/apple/swift/ee871c7938d9aafbafb8eab1937496480b235aaf/utils/gyb.py")
+        l.write(r.read())
+    import gyb
 gyb.main()
