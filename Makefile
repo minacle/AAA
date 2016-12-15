@@ -1,6 +1,6 @@
 XCBUILD=xcodebuild
 SWIFT=swift
-GYB=./gyb
+GYB=Utils/gyb
 
 XCFLAGS=
 SWIFTFLAGS=
