@@ -82,3 +82,21 @@ class AAATests: XCTestCase {
         XCTAssertNotNil(a.value)
     }
 }
+
+extension AAATests {
+
+    static var allTests : [(String, (AAATests) -> () throws -> Void)] {
+        return [
+            ("testBasics", testBasics),
+            ("testNilLiteral", testNilLiteral),
+            ("testBooleanLiteral", testBooleanLiteral),
+            ("testIntegerLiteral", testIntegerLiteral),
+            ("testFloatLiteral", testFloatLiteral),
+            ("testStringLiteral", testStringLiteral),
+            ("testArrayLiteral", testArrayLiteral),
+            ("testDictionaryLiteral", testDictionaryLiteral),
+            ("testObject", testObject),
+            ("testValue", testValue),
+        ]
+    }
+}
