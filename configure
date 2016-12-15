@@ -1,0 +1,85 @@
+#!/bin/bash
+
+MAKEFILE=Makefile
+
+echo -n >$MAKEFILE
+
+cat <<'EOF' >>$MAKEFILE
+XCBUILD ?= xcodebuild
+SWIFT ?= swift
+GYB ?= Utils/gyb
+
+XCFLAGS ?=
+SWIFTFLAGS ?=
+GYBFLAGS ?= --line-directive ''
+
+SOURCE_DIR ?= Sources
+BUILD_PATH ?= .build
+SYMROOT ?= Build
+
+MODULE_NAME ?= AAA
+
+_GYB_SOURCES := $(wildcard $(SOURCE_DIR)/$(MODULE_NAME)/*.gyb)
+_GYB_OUTPUTS := $(patsubst %.gyb,%,$(_GYB_SOURCES))
+
+.DEFAULT_GOAL := build
+
+xcodeproj: gyb
+	$(SWIFT) package $(SWIFTFLAGS) generate-xcodeproj
+
+gyb: $(_GYB_OUTPUTS)
+
+$(_GYB_OUTPUTS): %: %.gyb
+	$(GYB) $(GYBFLAGS) -o $@ $<
+
+clean:
+	$(RM) -r $(BUILD_PATH)
+	$(RM) -r $(SYMROOT)
+	$(RM) -r AAA.xcodeproj
+	$(RM) $(_GYB_OUTPUTS)
+EOF
+
+PHONY='xcodeproj gyb clean'
+
+SWIFT_FORM='$(SWIFT) $(_CMD) --build-path $(BUILD_PATH) $(_FLAGS) $(SWIFTFLAGS)'
+XCBUILD_FORM='$(XCBUILD) SYMROOT=$(SYMROOT) $(_FLAGS) $(XCFLAGS) $(_CMD)'
+
+make-target() {
+PHONY="$PHONY $2"
+cat <<EOF >>$MAKEFILE
+
+$2: $3
+	\$(eval _CMD := $4)
+	\$(eval _FLAGS := ${@:5})
+	$1
+EOF
+}
+
+make-target "$SWIFT_FORM" build gyb build
+make-target "$SWIFT_FORM" debug gyb build -c debug
+make-target "$SWIFT_FORM" release gyb build -c release
+make-target "$SWIFT_FORM" test build test
+
+make-target "$XCBUILD_FORM" xc-build xcodeproj build
+make-target "$XCBUILD_FORM" xc-debug xcodeproj build -configuration Debug
+make-target "$XCBUILD_FORM" xc-release xcodeproj build -configuration Release
+make-target "$XCBUILD_FORM" xc-test xc-build test -scheme '$(MODULE_NAME)'
+
+make-target "$XCBUILD_FORM" ios xcodeproj build -sdk iphoneos -destination generic/platform=iOS
+make-target "$XCBUILD_FORM" ios-debug xcodeproj build -configuration Debug -sdk iphoneos -destination generic/platform=iOS
+make-target "$XCBUILD_FORM" ios-release xcodeproj build -configuration Release -sdk iphoneos -destination generic/platform=iOS
+
+make-target "$XCBUILD_FORM" macos xcodeproj build -sdk macosx -destination generic/platform=macOS
+make-target "$XCBUILD_FORM" macos-debug xcodeproj build -configuration Debug -sdk macosx -destination generic/platform=macOS
+make-target "$XCBUILD_FORM" macos-release xcodeproj build -configuration Release -sdk macosx -destination generic/platform=macOS
+
+make-target "$XCBUILD_FORM" tvos xcodeproj build -sdk tvos -destination generic/platform=tvOS
+make-target "$XCBUILD_FORM" tvos-debug xcodeproj build -configuration Debug -sdk tvos -destination generic/platform=tvOS
+make-target "$XCBUILD_FORM" tvos-release xcodeproj build -configuration Release -sdk tvos -destination generic/platform=tvOS
+
+make-target "$XCBUILD_FORM" watchos xcodeproj build -sdk watchos -destination generic/platform=watchOS
+make-target "$XCBUILD_FORM" watchos-debug xcodeproj build -configuration Debug -sdk watchos -destination generic/platform=watchOS
+make-target "$XCBUILD_FORM" watchos-release xcodeproj build -configuration Release -sdk watchos -destination generic/platform=watchOS
+
+echo >>$MAKEFILE
+echo ".PHONY: $PHONY" >>$MAKEFILE
