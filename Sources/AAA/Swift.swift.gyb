@@ -10,7 +10,11 @@ import Swift // 3.0.2
         "AnySequence": {},
         "Array": {},
         "ArraySlice": {},
-      # "AutoreleasingUnsafeMutablePointer": {},
+        "AutoreleasingUnsafeMutablePointer": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
         "BidirectionalSlice": {},
         "Bool": {},
         "CVaListPointer": {},
@@ -41,6 +45,14 @@ import Swift // 3.0.2
         "FlattenIterator": {},
         "FlattenSequence": {},
         "Float": {},
+        "Float80": {
+            "supported": {
+                "arch": ["i386", "x86_64"],
+            },
+            "unsupported": {
+                "os": ["Windows"],
+            },
+        },
         "IndexingIterator": {},
         "Int": {},
         "Int16": {},
@@ -134,43 +146,53 @@ import Swift // 3.0.2
 % for type in sorted(types.keys()):
 %{
     attributes = types[type]
-}%
-
-% if "unsupported" in attributes:
-%{
     preif_condition = ""
 }%
-% if "os" in attributes["unsupported"]:
-% for os in attributes["unsupported"]["os"]:
+
 %{
-    preif_condition += "os(%s) ||" % os
-}%
-% end
-% end
-% if "arch" in attributes["unsupported"]:
-% for arch in attributes["unsupported"]["arch"]:
-%{
-    preif_condition += "arch(%s) ||" % arch
-}%
-% end
-% end
-% if "swift" in attributes["unsupported"]:
-% for swift in attributes["unsupported"]["swift"]:
-%{
-    preif_condition += "swift(%s) ||" % os
-}%
-% end
-% end
-%{
-    preif_condition = preif_condition[:-3]
+    if "supported" in attributes:
+        if preif_condition:
+            preif_condition += " && "
+        preif_condition += "("
+        if "os" in attributes["supported"]:
+            for os in attributes["supported"]["os"]:
+                preif_condition += "os(%s) || " % os
+        if "arch" in attributes["supported"]:
+            for arch in attributes["supported"]["arch"]:
+                preif_condition += "arch(%s) || " % arch
+        if "swift" in attributes["supported"]:
+            for swift in attributes["supported"]["swift"]:
+                preif_condition += "swift(%s) || " % swift
+        if len(preif_condition) == 1:
+            preif_condition = ""
+        else:
+            preif_condition = preif_condition[:-4] + ")"
+    if "unsupported" in attributes:
+        if preif_condition:
+            preif_condition += " && "
+        preif_condition += "!("
+        if "os" in attributes["unsupported"]:
+            for os in attributes["unsupported"]["os"]:
+                preif_condition += "os(%s) || " % os
+        if "arch" in attributes["unsupported"]:
+            for arch in attributes["unsupported"]["arch"]:
+                preif_condition += "arch(%s) || " % arch
+        if "swift" in attributes["unsupported"]:
+            for swift in attributes["unsupported"]["swift"]:
+                preif_condition += "swift(%s) || " % swift
+        if len(preif_condition) == 1:
+            preif_condition = ""
+        else:
+            preif_condition = preif_condition[:-4] + ")"
+    if preif_condition.startswith("(") and ") && !(" not in preif_condition:
+        preif_condition = preif_condition[1:-1]
 }%
 % if preif_condition:
-#if !(${preif_condition})
-% end
-% end
+#if ${preif_condition}
+% end  # if
 % if "available" in attributes:
 @available(${attributes["available"]})
-% end
+% end  # if
 extension ${type} {
 
     public init?(_ a: AAA) {
@@ -180,9 +202,7 @@ extension ${type} {
         self = o
     }
 }
-% if "unsupported" in attributes:
 % if preif_condition:
 #endif
-% end
-% end
-% end
+% end  # if
+% end  # for

@@ -1,7 +1,13 @@
 import Foundation // 3.0.2
 %{
     types = {
+        "AffineTransform": {
+            "supported": {
+                "os": ["macOS", "Linux"],
+            },
+        },
         "Calendar": {},
+        "NSCalendar.Identifier": {},
         "CharacterSet": {},
         "CocoaError": {},
         "CocoaError.Code": {},
@@ -11,6 +17,11 @@ import Foundation // 3.0.2
         "DateComponents": {},
         "DateInterval": {
             "available": "OSX 10.12, *",
+        },
+        "DistributedNotificationCenter.CenterType": {
+            "supported": {
+                "os": ["macOS", "Linux"],
+            },
         },
         "ErrorUserInfoKey": {
             "unsupported": {
@@ -37,7 +48,9 @@ import Foundation // 3.0.2
         "IndexSet": {},
         "IndexSet.Index": {},
         "IndexSet.RangeView": {},
+        "NSKeyValueOperator": {},
         "Locale": {},
+        "NSLocale.Key": {},
         "MachError": {
             "unsupported": {
                 "os": ["Linux"],
@@ -51,13 +64,47 @@ import Foundation // 3.0.2
                 "os": ["Linux"],
             },
         },
+        "NSAffineTransformStruct": {
+            "supported": {
+                "os": ["macOS", "Linux"],
+            },
+        },
+        "NSAppleEventDescriptor.SendOptions": {
+            "supported": {
+                "os": ["macOS", "Linux"],
+            },
+        },
+        "NSAttributedString.EnumerationOptions": {},
+        "NSBinarySearchingOptions": {},
         "ByteCountFormatter.Units": {},
+        "NSCalendar.Options": {},
+        "NSCalendar.Unit": {},
+        "NSComparisonPredicate.Options": {},
+        "NSData.Base64DecodingOptions": {},
+        "NSData.Base64EncodingOptions": {},
+        "NSData.ReadingOptions": {},
+        "NSData.SearchOptions": {},
+        "NSData.WritingOptions": {},
         "DateComponentsFormatter.ZeroFormattingBehavior": {},
         "FileManager.DirectoryEnumerationOptions": {
             "unsupported": {
                 "os": ["Linux"],
             },
         },
+        "DistributedNotificationCenter.Options": {
+            "supported": {
+                "os": ["macOS", "Linux"],
+            },
+        },
+        "EdgeInsets": {
+            "supported": {
+                "os": ["macOS", "Linux"],
+            },
+        },
+        "NSExceptionName": {},
+        "NSFastEnumerationState": {},
+        "NSFileCoordinator.ReadingOptions": {},
+        "NSFileCoordinator.WritingOptions": {},
         "FileManager.ItemReplacementOptions": {
             "unsupported": {
                 "os": ["Linux"],
@@ -68,6 +115,8 @@ import Foundation // 3.0.2
                 "os": ["Linux"],
             },
         },
+        "NSFileVersion.AddingOptions": {},
+        "NSFileVersion.ReplacingOptions": {},
         "FileWrapper.ReadingOptions": {
             "unsupported": {
                 "os": ["Linux"],
@@ -83,14 +132,21 @@ import Foundation // 3.0.2
                 "os": ["Linux"],
             },
         },
+        "NSIndexSetIterator": {},
         "JSONSerialization.ReadingOptions": {},
         "JSONSerialization.WritingOptions": {},
+        "NSKeyValueChangeKey": {},
+        "NSLinguisticTagger.Options": {},
+        "NSMachPort.Options": {},
+        "NSRegularExpression.MatchingFlags": {},
+        "NSRegularExpression.MatchingOptions": {},
         "MeasurementFormatter.UnitOptions": {},
         "NetService.Options": {
             "unsupported": {
                 "os": ["Linux"],
             },
         },
+        "NSNotification.Name": {},
         "NotificationQueue.NotificationCoalescing": {
             "unsupported": {
                 "os": ["Linux"],
@@ -100,9 +156,22 @@ import Foundation // 3.0.2
         "PersonNameComponentsFormatter.Options": {
             "available": "OSX 10.12, *",
         },
+        "NSPointerFunctions.Options": {},
         "PropertyListSerialization.MutabilityOptions": {},
+        "NSRegularExpression.Options": {},
         "Stream.Event": {},
+        "NSString.CompareOptions": {},
+        "NSString.EncodingConversionOptions": {},
+        "NSString.EnumerationOptions": {},
+        "NSTextCheckingResult.CheckingType": {},
+        "NSURL.BookmarkCreationOptions": {},
+        "NSURL.BookmarkResolutionOptions": {},
         "FileManager.VolumeEnumerationOptions": {},
+        "NSXPCConnection.Options": {
+            "supported": {
+                "os": ["macOS", "Linux"],
+            },
+        },
         "Notification": {},
         "POSIXError": {},
         "PersonNameComponents": {
@@ -172,48 +241,64 @@ import Foundation // 3.0.2
             },
         },
         "UUID": {},
+        "NSValueTransformerName": {},
+        "XMLNode.Options": {
+            "supported": {
+                "os": ["macOS", "Linux"],
+            },
+        },
     }
 }%
 % for type in sorted(types.keys()):
 %{
     attributes = types[type]
-}%
-
-% if "unsupported" in attributes:
-%{
     preif_condition = ""
 }%
-% if "os" in attributes["unsupported"]:
-% for os in attributes["unsupported"]["os"]:
+
 %{
-    preif_condition += "os(%s) ||" % os
-}%
-% end
-% end
-% if "arch" in attributes["unsupported"]:
-% for arch in attributes["unsupported"]["arch"]:
-%{
-    preif_condition += "arch(%s) ||" % arch
-}%
-% end
-% end
-% if "swift" in attributes["unsupported"]:
-% for swift in attributes["unsupported"]["swift"]:
-%{
-    preif_condition += "swift(%s) ||" % os
-}%
-% end
-% end
-%{
-    preif_condition = preif_condition[:-3]
+    if "supported" in attributes:
+        if preif_condition:
+            preif_condition += " && "
+        preif_condition += "("
+        if "os" in attributes["supported"]:
+            for os in attributes["supported"]["os"]:
+                preif_condition += "os(%s) || " % os
+        if "arch" in attributes["supported"]:
+            for arch in attributes["supported"]["arch"]:
+                preif_condition += "arch(%s) || " % arch
+        if "swift" in attributes["supported"]:
+            for swift in attributes["supported"]["swift"]:
+                preif_condition += "swift(%s) || " % swift
+        if len(preif_condition) == 1:
+            preif_condition = ""
+        else:
+            preif_condition = preif_condition[:-4] + ")"
+    if "unsupported" in attributes:
+        if preif_condition:
+            preif_condition += " && "
+        preif_condition += "!("
+        if "os" in attributes["unsupported"]:
+            for os in attributes["unsupported"]["os"]:
+                preif_condition += "os(%s) || " % os
+        if "arch" in attributes["unsupported"]:
+            for arch in attributes["unsupported"]["arch"]:
+                preif_condition += "arch(%s) || " % arch
+        if "swift" in attributes["unsupported"]:
+            for swift in attributes["unsupported"]["swift"]:
+                preif_condition += "swift(%s) || " % swift
+        if len(preif_condition) == 1:
+            preif_condition = ""
+        else:
+            preif_condition = preif_condition[:-4] + ")"
+    if preif_condition.startswith("(") and ") && !(" not in preif_condition:
+        preif_condition = preif_condition[1:-1]
 }%
 % if preif_condition:
-#if !(${preif_condition})
-% end
-% end
+#if ${preif_condition}
+% end  # if
 % if "available" in attributes:
 @available(${attributes["available"]})
-% end
+% end  # if
 extension ${type} {
 
     public init?(_ a: AAA) {
@@ -223,9 +308,7 @@ extension ${type} {
         self = o
     }
 }
-% if "unsupported" in attributes:
 % if preif_condition:
 #endif
-% end
-% end
-% end
+% end  # if
+% end  # for
