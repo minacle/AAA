@@ -3,9 +3,24 @@
 try:
     import gyb
 except:
-    with open(__file__ + ".py", "w") as l:
+    n = __file__ + ".py"
+    with open(n, "wb") as l:
         from urllib2 import urlopen
         r = urlopen("https://raw.githubusercontent.com/apple/swift/ee871c7938d9aafbafb8eab1937496480b235aaf/utils/gyb.py")
         l.write(r.read())
+    v = False
+    with open(n, "rb") as f:
+        from hashlib import sha1
+        h = sha1()
+        while True:
+            b = f.read(65536)
+            if not b:
+                break
+            h.update(b)
+        if h.hexdigest() == "f8c9f50f1577d256fe1bb3a07e85a6b9506eb869":
+            v = True
+    if not v:
+        from os import remove
+        remove(n)
     import gyb
 gyb.main()
