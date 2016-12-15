@@ -20,7 +20,7 @@ import Foundation // 3.0.2
         },
         "DistributedNotificationCenter.CenterType": {
             "supported": {
-                "os": ["macOS", "Linux"],
+                "os": ["macOS"],
             },
         },
         "ErrorUserInfoKey": {
@@ -48,7 +48,11 @@ import Foundation // 3.0.2
         "IndexSet": {},
         "IndexSet.Index": {},
         "IndexSet.RangeView": {},
-        "NSKeyValueOperator": {},
+        "NSKeyValueOperator": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
         "Locale": {},
         "NSLocale.Key": {},
         "MachError": {
@@ -66,12 +70,12 @@ import Foundation // 3.0.2
         },
         "NSAffineTransformStruct": {
             "supported": {
-                "os": ["macOS", "Linux"],
+                "os": ["macOS"],
             },
         },
         "NSAppleEventDescriptor.SendOptions": {
             "supported": {
-                "os": ["macOS", "Linux"],
+                "os": ["macOS"],
             },
         },
         "NSAttributedString.EnumerationOptions": {},
@@ -93,18 +97,30 @@ import Foundation // 3.0.2
         },
         "DistributedNotificationCenter.Options": {
             "supported": {
-                "os": ["macOS", "Linux"],
+                "os": ["macOS"],
             },
         },
         "EdgeInsets": {
             "supported": {
-                "os": ["macOS", "Linux"],
+                "os": ["macOS"],
             },
         },
         "NSExceptionName": {},
-        "NSFastEnumerationState": {},
-        "NSFileCoordinator.ReadingOptions": {},
-        "NSFileCoordinator.WritingOptions": {},
+        "NSFastEnumerationState": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "NSFileCoordinator.ReadingOptions": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "NSFileCoordinator.WritingOptions": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
         "FileManager.ItemReplacementOptions": {
             "unsupported": {
                 "os": ["Linux"],
@@ -115,8 +131,16 @@ import Foundation // 3.0.2
                 "os": ["Linux"],
             },
         },
-        "NSFileVersion.AddingOptions": {},
-        "NSFileVersion.ReplacingOptions": {},
+        "NSFileVersion.AddingOptions": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "NSFileVersion.ReplacingOptions": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
         "FileWrapper.ReadingOptions": {
             "unsupported": {
                 "os": ["Linux"],
@@ -135,11 +159,31 @@ import Foundation // 3.0.2
         "NSIndexSetIterator": {},
         "JSONSerialization.ReadingOptions": {},
         "JSONSerialization.WritingOptions": {},
-        "NSKeyValueChangeKey": {},
-        "NSLinguisticTagger.Options": {},
-        "NSMachPort.Options": {},
-        "NSRegularExpression.MatchingFlags": {},
-        "NSRegularExpression.MatchingOptions": {},
+        "NSKeyValueChangeKey": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "NSLinguisticTagger.Options": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "NSMachPort.Options": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "NSRegularExpression.MatchingFlags": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "NSRegularExpression.MatchingOptions": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
         "MeasurementFormatter.UnitOptions": {},
         "NetService.Options": {
             "unsupported": {
@@ -156,20 +200,40 @@ import Foundation // 3.0.2
         "PersonNameComponentsFormatter.Options": {
             "available": "OSX 10.12, *",
         },
-        "NSPointerFunctions.Options": {},
+        "NSPointerFunctions.Options": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
         "PropertyListSerialization.MutabilityOptions": {},
-        "NSRegularExpression.Options": {},
+        "NSRegularExpression.Options": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
         "Stream.Event": {},
         "NSString.CompareOptions": {},
         "NSString.EncodingConversionOptions": {},
         "NSString.EnumerationOptions": {},
-        "NSTextCheckingResult.CheckingType": {},
-        "NSURL.BookmarkCreationOptions": {},
-        "NSURL.BookmarkResolutionOptions": {},
+        "NSTextCheckingResult.CheckingType": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "NSURL.BookmarkCreationOptions": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "NSURL.BookmarkResolutionOptions": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
         "FileManager.VolumeEnumerationOptions": {},
         "NSXPCConnection.Options": {
             "supported": {
-                "os": ["macOS", "Linux"],
+                "os": ["macOS"],
             },
         },
         "Notification": {},
@@ -241,7 +305,11 @@ import Foundation // 3.0.2
             },
         },
         "UUID": {},
-        "NSValueTransformerName": {},
+        "NSValueTransformerName": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
         "XMLNode.Options": {
             "supported": {
                 "os": ["macOS", "Linux"],
