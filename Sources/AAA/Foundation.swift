@@ -111,6 +111,78 @@ extension DateInterval {
     }
 }
 
+#if !(os(Linux))
+extension ErrorUserInfoKey {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? ErrorUserInfoKey else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
+
+#if !(os(Linux))
+extension FileAttributeKey {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? FileAttributeKey else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
+
+#if !(os(Linux))
+extension FileAttributeType {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? FileAttributeType else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
+
+#if !(os(Linux))
+extension FileManager.DirectoryEnumerationOptions {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? FileManager.DirectoryEnumerationOptions else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
+
+#if !(os(Linux))
+extension FileManager.ItemReplacementOptions {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? FileManager.ItemReplacementOptions else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
+
+#if !(os(Linux))
+extension FileManager.UnmountOptions {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? FileManager.UnmountOptions else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
+
 extension FileManager.VolumeEnumerationOptions {
 
     public init?(_ a: AAA) {
@@ -121,6 +193,42 @@ extension FileManager.VolumeEnumerationOptions {
     }
 }
 
+#if !(os(Linux))
+extension FileProtectionType {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? FileProtectionType else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
+
+#if !(os(Linux))
+extension FileWrapper.ReadingOptions {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? FileWrapper.ReadingOptions else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
+
+#if !(os(Linux))
+extension FileWrapper.WritingOptions {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? FileWrapper.WritingOptions else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
+
 extension HTTPCookiePropertyKey {
 
     public init?(_ a: AAA) {
@@ -130,6 +238,18 @@ extension HTTPCookiePropertyKey {
         self = o
     }
 }
+
+#if !(os(Linux))
+extension ISO8601DateFormatter.Options {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? ISO8601DateFormatter.Options else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
 
 extension IndexPath {
 
@@ -201,6 +321,18 @@ extension Locale {
     }
 }
 
+#if !(os(Linux))
+extension MachError {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? MachError else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
+
 @available(OSX 10.12, *)
 extension Measurement {
 
@@ -222,6 +354,18 @@ extension MeasurementFormatter.UnitOptions {
     }
 }
 
+#if !(os(Linux))
+extension NetService.Options {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? NetService.Options else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
+
 extension Notification {
 
     public init?(_ a: AAA) {
@@ -231,6 +375,18 @@ extension Notification {
         self = o
     }
 }
+
+#if !(os(Linux))
+extension NotificationQueue.NotificationCoalescing {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? NotificationQueue.NotificationCoalescing else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
 
 extension OperatingSystemVersion {
 
@@ -273,6 +429,54 @@ extension PersonNameComponentsFormatter.Options {
         self = o
     }
 }
+
+#if !(os(Linux))
+extension ProcessInfo.ActivityOptions {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? ProcessInfo.ActivityOptions else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
+
+#if !(os(Linux))
+extension Progress.FileOperationKind {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? Progress.FileOperationKind else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
+
+#if !(os(Linux))
+extension ProgressKind {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? ProgressKind else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
+
+#if !(os(Linux))
+extension ProgressUserInfoKey {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? ProgressUserInfoKey else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
 
 extension PropertyListSerialization.MutabilityOptions {
 
@@ -365,6 +569,30 @@ extension String.Encoding {
     }
 }
 
+#if !(os(Linux))
+extension StringEncodingDetectionOptionsKey {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? StringEncodingDetectionOptionsKey else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
+
+#if !(os(Linux))
+extension StringTransform {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? StringTransform else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
+
 extension TimeZone {
 
     public init?(_ a: AAA) {
@@ -404,6 +632,18 @@ extension URLError {
         self = o
     }
 }
+
+#if !(os(Linux))
+extension URLFileProtection {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? URLFileProtection else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
 
 extension URLFileResourceType {
 
@@ -454,6 +694,42 @@ extension URLResourceValues {
         self = o
     }
 }
+
+#if !(os(Linux))
+extension URLThumbnailDictionaryItem {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? URLThumbnailDictionaryItem else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
+
+#if !(os(Linux))
+extension URLThumbnailSizeKey {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? URLThumbnailSizeKey else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
+
+#if !(os(Linux))
+extension URLUbiquitousItemDownloadingStatus {
+
+    public init?(_ a: AAA) {
+        guard let o = a[] as? URLUbiquitousItemDownloadingStatus else {
+            return nil
+        }
+        self = o
+    }
+}
+#endif
 
 extension UUID {
 
