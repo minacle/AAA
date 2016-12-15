@@ -14,7 +14,7 @@ MODULE_NAME=AAA
 GYB_SOURCES=$(wildcard $(SOURCE_DIR)/$(MODULE_NAME)/*.gyb)
 GYB_OUTPUTS=$(patsubst %.gyb,%,$(GYB_SOURCES))
 
-.PHONY: build test clean xcodeproj gyb
+.PHONY: build debug release test xc-build xc-debug xc-release xc-test xcodeproj gyb clean
 
 build: gyb
 	$(SWIFT) build --build-path $(BUILD_DIR) $(SWIFTFLAGS)
