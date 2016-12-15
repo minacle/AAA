@@ -1,27 +1,54 @@
+XCBUILD=xcodebuild
 SWIFT=swift
 GYB=./gyb
 
+XCFLAGS=
+SWIFTFLAGS=
+GYBFLAGS=--line-directive ''
+
 SOURCE_DIR=Sources
-GYB_SOURCES=$(wildcard $(SOURCE_DIR)/**/*.gyb)
+BUILD_DIR=Build
+
+MODULE_NAME=AAA
+
+GYB_SOURCES=$(wildcard $(SOURCE_DIR)/$(MODULE_NAME)/*.gyb)
 GYB_OUTPUTS=$(patsubst %.gyb,%,$(GYB_SOURCES))
 
 .PHONY: build test clean xcodeproj gyb
 
 build: gyb
-	$(SWIFT) build
+	$(SWIFT) build --build-path $(BUILD_DIR) $(SWIFTFLAGS)
+
+debug: gyb
+	$(SWIFT) build -c debug --build-path $(BUILD_DIR) $(SWIFTFLAGS)
+
+release: gyb
+	$(SWIFT) build -c release --build-path $(BUILD_DIR) $(SWIFTFLAGS)
 
 test: build
-	$(SWIFT) test
+	$(SWIFT) test --build-path $(BUILD_DIR) $(SWIFTFLAGS)
 
-clean:
-	rm -rf AAA.xcodeproj
-	$(SWIFT) build --clean
-	rm -f $(GYB_OUTPUTS)
+xc-build: xcodeproj
+	$(XCBUILD) $(XCFLAGS) SYMROOT=$(BUILD_DIR)
+
+xc-debug: xcodeproj
+	$(XCBUILD) -configuration Debug SYMROOT=$(BUILD_DIR) $(XCFLAGS)
+
+xc-release: xcodeproj
+	$(XCBUILD) -configuration Release SYMROOT=$(BUILD_DIR) $(XCFLAGS)
+
+xc-test: xc-build
+	$(XCBUILD) -scheme $(MODULE_NAME) SYMROOT=$(BUILD_DIR) $(XCFLAGS) test
 
 xcodeproj: gyb
-	$(SWIFT) package generate-xcodeproj
+	$(SWIFT) package $(SWIFTFLAGS) generate-xcodeproj
 
 gyb: $(GYB_OUTPUTS)
 
 $(GYB_OUTPUTS): %: %.gyb
-	$(GYB) --line-directive '' -o $@ $<
+	$(GYB) $(GYBFLAGS) -o $@ $<
+
+clean:
+	$(RM) -r $(BUILD_DIR)
+	$(RM) -r AAA.xcodeproj
+	$(RM) $(GYB_OUTPUTS)
