@@ -198,3 +198,9 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+
+### Custom rules ###
+
+Utils/*.*
+
