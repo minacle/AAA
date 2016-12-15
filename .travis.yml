@@ -6,10 +6,12 @@ matrix:
       dist: trusty
       sudo: required
       script:
+        - ./configure
         - make test
     - os: osx
       osx_image: xcode8.2
       script:
+        - ./configure
         - make xc-test
 
 install:
