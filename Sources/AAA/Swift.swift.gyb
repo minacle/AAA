@@ -136,6 +136,38 @@ import Swift // 3.0.2
     attributes = types[type]
 }%
 
+% if "unsupported" in attributes:
+%{
+    preif_condition = ""
+}%
+% if "os" in attributes["unsupported"]:
+% for os in attributes["unsupported"]["os"]:
+%{
+    preif_condition += "os(%s) ||" % os
+}%
+% end
+% end
+% if "arch" in attributes["unsupported"]:
+% for arch in attributes["unsupported"]["arch"]:
+%{
+    preif_condition += "arch(%s) ||" % arch
+}%
+% end
+% end
+% if "swift" in attributes["unsupported"]:
+% for swift in attributes["unsupported"]["swift"]:
+%{
+    preif_condition += "swift(%s) ||" % os
+}%
+% end
+% end
+%{
+    preif_condition = preif_condition[:-3]
+}%
+% if preif_condition:
+#if !(${preif_condition})
+% end
+% end
 % if "available" in attributes:
 @available(${attributes["available"]})
 % end
@@ -148,4 +180,9 @@ extension ${type} {
         self = o
     }
 }
+% if "unsupported" in attributes:
+% if preif_condition:
+#endif
+% end
+% end
 % end

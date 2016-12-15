@@ -12,34 +12,90 @@ import Foundation // 3.0.2
         "DateInterval": {
             "available": "OSX 10.12, *",
         },
-      # "ErrorUserInfoKey": {},
-      # "FileAttributeKey": {},
-      # "FileAttributeType": {},
-      # "FileProtectionType": {},
+        "ErrorUserInfoKey": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "FileAttributeKey": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "FileAttributeType": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "FileProtectionType": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
         "HTTPCookiePropertyKey": {},
         "IndexPath": {},
         "IndexSet": {},
         "IndexSet.Index": {},
         "IndexSet.RangeView": {},
         "Locale": {},
-      # "MachError": {},
+        "MachError": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
         "Measurement": {
             "available": "OSX 10.12, *",
         },
-      # "ProcessInfo.ActivityOptions": {},
+        "ProcessInfo.ActivityOptions": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
         "ByteCountFormatter.Units": {},
         "DateComponentsFormatter.ZeroFormattingBehavior": {},
-      # "FileManager.DirectoryEnumerationOptions": {},
-      # "FileManager.ItemReplacementOptions": {},
-      # "FileManager.UnmountOptions": {},
-      # "FileWrapper.ReadingOptions": {},
-      # "FileWrapper.WritingOptions": {},
-      # "ISO8601DateFormatter.Options": {},
+        "FileManager.DirectoryEnumerationOptions": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "FileManager.ItemReplacementOptions": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "FileManager.UnmountOptions": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "FileWrapper.ReadingOptions": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "FileWrapper.WritingOptions": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "ISO8601DateFormatter.Options": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
         "JSONSerialization.ReadingOptions": {},
         "JSONSerialization.WritingOptions": {},
         "MeasurementFormatter.UnitOptions": {},
-      # "NetService.Options": {},
-      # "NotificationQueue.NotificationCoalescing": {},
+        "NetService.Options": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "NotificationQueue.NotificationCoalescing": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
         "OperatingSystemVersion": {},
         "PersonNameComponentsFormatter.Options": {
             "available": "OSX 10.12, *",
@@ -52,9 +108,21 @@ import Foundation // 3.0.2
         "PersonNameComponents": {
             "available": "OSX 10.11, *",
         },
-      # "Progress.FileOperationKind": {},
-      # "ProgressKind": {},
-      # "ProgressUserInfoKey": {},
+        "Progress.FileOperationKind": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "ProgressKind": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "ProgressUserInfoKey": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
         "RunLoopMode": {
             "available": "OSX 10.12, *",
         },
@@ -64,21 +132,45 @@ import Foundation // 3.0.2
         "StreamSOCKSProxyVersion": {},
         "StreamSocketSecurityLevel": {},
         "String.Encoding": {},
-      # "StringEncodingDetectionOptionsKey": {},
-      # "StringTransform": {},
+        "StringEncodingDetectionOptionsKey": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "StringTransform": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
         "TimeZone": {},
         "URL": {},
         "URLComponents": {},
         "URLError": {},
-      # "URLFileProtection": {},
+        "URLFileProtection": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
         "URLFileResourceType": {},
         "URLQueryItem": {},
         "URLRequest": {},
         "URLResourceKey": {},
         "URLResourceValues": {},
-      # "URLThumbnailDictionaryItem": {},
-      # "URLThumbnailSizeKey": {},
-      # "URLUbiquitousItemDownloadingStatus": {},
+        "URLThumbnailDictionaryItem": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "URLThumbnailSizeKey": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
+        "URLUbiquitousItemDownloadingStatus": {
+            "unsupported": {
+                "os": ["Linux"],
+            },
+        },
         "UUID": {},
     }
 }%
@@ -87,6 +179,38 @@ import Foundation // 3.0.2
     attributes = types[type]
 }%
 
+% if "unsupported" in attributes:
+%{
+    preif_condition = ""
+}%
+% if "os" in attributes["unsupported"]:
+% for os in attributes["unsupported"]["os"]:
+%{
+    preif_condition += "os(%s) ||" % os
+}%
+% end
+% end
+% if "arch" in attributes["unsupported"]:
+% for arch in attributes["unsupported"]["arch"]:
+%{
+    preif_condition += "arch(%s) ||" % arch
+}%
+% end
+% end
+% if "swift" in attributes["unsupported"]:
+% for swift in attributes["unsupported"]["swift"]:
+%{
+    preif_condition += "swift(%s) ||" % os
+}%
+% end
+% end
+%{
+    preif_condition = preif_condition[:-3]
+}%
+% if preif_condition:
+#if !(${preif_condition})
+% end
+% end
 % if "available" in attributes:
 @available(${attributes["available"]})
 % end
@@ -99,4 +223,9 @@ extension ${type} {
         self = o
     }
 }
+% if "unsupported" in attributes:
+% if preif_condition:
+#endif
+% end
+% end
 % end
