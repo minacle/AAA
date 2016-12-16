@@ -1,6 +1,6 @@
 # AAA
 
-[![tag](https://img.shields.io/github/tag/minacle/AAA.svg?maxAge=3600)](https://github.com/minacle/AAA/tags) [![Travis](https://img.shields.io/travis/minacle/AAA/dev.svg?maxAge=600)](https://travis-ci.org/minacle/AAA) [![license](https://img.shields.io/github/license/minacle/AAA.svg?maxAge=43200)](https://github.com/minacle/AAA/blob/master/LICENSE)
+[![tag](https://img.shields.io/github/tag/minacle/AAA.svg?maxAge=3600)](https://github.com/minacle/AAA/tags) [![Travis](https://img.shields.io/travis/minacle/AAA/dev.svg?maxAge=600)](https://travis-ci.org/minacle/AAA) [![license](https://img.shields.io/github/license/minacle/AAA.svg?maxAge=43200)](https://github.com/minacle/AAA/blob/master/LICENSE) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?maxAge=604800)](https://github.com/Carthage/Carthage)
 
 > An `Any` Accessory.
 
@@ -35,7 +35,7 @@ No, stop! Please have mercy on me!
 
 ## Okay. I'll show some mercy to you.
 
-**Package.swift** <small>(Using *Swift Package Manager*; This project is now development state)</small>
+**Package.swift** (Using *Swift Package Manager*; This project is now development state)
 ```swift
 import PackageDescription
 
@@ -45,6 +45,11 @@ let package = Package(
         .Package(url: "https://github.com/minacle/AAA.git", versions: Version(0, 5, 0)..<Version(0, .max, .max)),
     ]
 )
+```
+
+**Cartfile** (Using *Carthage*; This project is now development state)
+```
+github "minacle/AAA" ~> 0.5
 ```
 
 ...Now, we have `AAA`. Let's try it!
