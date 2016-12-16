@@ -9,7 +9,7 @@ DESTINATION_BRANCH='swiftpm'
 
 cd "$ROOT"
 
-$(test "$(git status --porcelain)") && DIRTY=1 || DIRTY=
+test "$(git status --porcelain)" && DIRTY=1 || DIRTY=
 [ "$DIRTY" ] && git stash save -a -q
 if [ "$BRANCH" != $SOURCE_BRANCH ]
 then
