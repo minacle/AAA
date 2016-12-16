@@ -62,10 +62,8 @@ do
     esac
 done
 
-echo "$PULL"
-
 make -s "$TARGET"
-git add $KEEP
+echo "$KEEP" | xargs git add
 git stash save -q
 if [ -n "$(git rev-parse -q --verify $DEST_BRANCH)" ]
 then
@@ -77,7 +75,7 @@ git reset -q
 git clean -dfxq
 git stash pop -q
 
-git checkout $SRC_BRANCH "$PULL"
+echo "$PULL" | xargs git checkout $SRC_BRANCH
 
 _generate
 
