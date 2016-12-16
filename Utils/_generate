@@ -4,8 +4,6 @@ BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 ROOT="$(git rev-parse --show-toplevel)"
 CWD="$(pwd)"
 
-SRCS="$(git ls-tree -r --name-only $SRC_BRANCH Sources | sed '/\.gyb$/d')"
-
 cd "$ROOT"
 
 [ "$(git status --porcelain)" ] && DIRTY=1 || DIRTY=
@@ -19,7 +17,7 @@ make -s gyb
 
 TARGET="$1"
 KEEP=Sources
-PULL="$SRCS"
+PULL=
 STATE=
 for i in $(eval echo "{2..$#}")
 do
@@ -39,19 +37,19 @@ do
     *)
         case "$STATE" in
         KEEP)
-            KEEP="$KEEP"$'\n'"$i"
+            KEEP="$KEEP '$i'"
             ;;
         PULL)
-            PULL="$PULL"$'\n'"$i"
+            PULL="$PULL '$i'"
             ;;
         README)
             cp "$i" README.md
-            KEEP="$KEEP"$'\n'README.md
+            KEEP="$KEEP README.md"
             STATE=
             ;;
         README_TEXT)
             echo "$i" >README.md
-            KEEP="$KEEP"$'\n'README.md
+            KEEP="$KEEP README.md"
             STATE=
             ;;
         *)
@@ -75,7 +73,8 @@ git reset -q
 git clean -dfxq
 git stash pop -q
 
-echo "$PULL" | xargs git checkout $SRC_BRANCH
+SRCS="$(git ls-tree -r --name-only $SRC_BRANCH Sources | sed '/\.gyb$/d')"
+echo "$PULL" | xargs git checkout $SRC_BRANCH "$SRCS"
 
 _generate
 
