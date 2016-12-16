@@ -81,6 +81,26 @@ class AAATests: XCTestCase {
         XCTAssertNil(a.object)
         XCTAssertNotNil(a.value)
     }
+
+    func testFor() {
+        let a: AAA = [0, "a", [1], ["b": true]]
+        var index = 0
+        for item in a {
+            switch index {
+            case 0:
+                XCTAssertEqual(item as! IntegerLiteralType, 0)
+            case 1:
+                XCTAssertEqual(item as! StringLiteralType, "a")
+            case 2:
+                XCTAssertEqual(item as! [IntegerLiteralType], [1])
+            case 3:
+                XCTAssertEqual(item as! [StringLiteralType: BooleanLiteralType], ["b": true])
+            default:
+                break
+            }
+            index += 1
+        }
+    }
 }
 
 extension AAATests {
@@ -97,6 +117,7 @@ extension AAATests {
             ("testDictionaryLiteral", testDictionaryLiteral),
             ("testObject", testObject),
             ("testValue", testValue),
+            ("testFor", testFor),
         ]
     }
 }
