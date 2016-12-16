@@ -78,3 +78,15 @@ git clean -dfxq
 git stash pop -q
 
 git checkout $SRC_BRANCH "$PULL"
+
+_generate
+
+git commit -m "auto-generated commit by '$SELF_NAME' using $(git rev-parse $SRC_BRANCH)"
+
+git checkout -q $BRANCH
+git reset -q
+git clean -dfxq
+git checkout -q -- .
+[ "$DIRTY" ] && git stash pop -q
+
+cd "$CWD"

@@ -6,8 +6,8 @@ SELF_NAME="$(basename $BASH_SOURCE)"
 SRC_BRANCH=dev
 DEST_BRANCH=swiftpm
 
-. "$SELF_DIR/_generate-init" gyb -p LICENSE Package.swift
+_generate() {
+    git add .
+}
 
-git add .
-
-. "$SELF_DIR/_generate-fine"
+. "$SELF_DIR/_generate" gyb -p LICENSE Package.swift

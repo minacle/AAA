@@ -6,10 +6,10 @@ SELF_NAME="$(basename $BASH_SOURCE)"
 SRC_BRANCH=dev
 DEST_BRANCH=carthage
 
-. "$SELF_DIR/_generate-init" gyb -k AAA.xcodeproj -p LICENSE
+_generate() {
+    git add .
+    carthage build --no-skip-current >/dev/null
+    carthage archive >/dev/null
+}
 
-git add .
-carthage build --no-skip-current >/dev/null
-carthage archive >/dev/null
-
-. "$SELF_DIR/_generate-fine"
+. "$SELF_DIR/_generate" gyb -k AAA.xcodeproj -p LICENSE
