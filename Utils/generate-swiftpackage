@@ -1,42 +1,13 @@
 #!/bin/bash
 
-BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-ROOT="$(git rev-parse --show-toplevel)"
-CWD="$(pwd)"
+SELF_DIR="$(dirname $BASH_SOURCE)"
+SELF_NAME="$(basename $BASH_SOURCE)"
 
-SOURCE_BRANCH='dev'
-DESTINATION_BRANCH='swiftpm'
+SRC_BRANCH=dev
+DEST_BRANCH=swiftpm
 
-cd "$ROOT"
+. "$SELF_DIR/_generate-init" gyb -p LICENSE Package.swift
 
-[ "$(git status --porcelain)" ] && DIRTY=1 || DIRTY=
-[ "$DIRTY" ] && git stash save -a -q
-if [ "$BRANCH" != $SOURCE_BRANCH ]
-then
-    git checkout -q $SOURCE_BRANCH
-fi
-./configure
-make -s gyb
-rm -rf configure Makefile Utils
-git add Sources
-git stash save -q
-if [ -n "$(git rev-parse -q --verify $DESTINATION_BRANCH)" ]
-then
-    git checkout -q $DESTINATION_BRANCH
-else
-    git checkout -q --orphan $DESTINATION_BRANCH
-fi
-git reset -q
-git clean -dfxq
-git stash pop -q
-SRCS="$(git ls-tree -r --name-only $SOURCE_BRANCH Sources | sed '/\.gyb$/d')"
-git checkout $SOURCE_BRANCH LICENSE Package.swift "$SRCS"
 git add .
-git commit -m "compile $(git rev-parse $SOURCE_BRANCH) for $DESTINATION_BRANCH"
-git checkout -q $BRANCH
-git reset -q
-git clean -dfxq
-git checkout -q -- .
-[ "$DIRTY" ] && git stash pop -q
 
-cd "$CWD"
+. "$SELF_DIR/_generate-fine"

@@ -1,0 +1,80 @@
+#!/bin/bash
+
+BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+ROOT="$(git rev-parse --show-toplevel)"
+CWD="$(pwd)"
+
+SRCS="$(git ls-tree -r --name-only $SRC_BRANCH Sources | sed '/\.gyb$/d')"
+
+cd "$ROOT"
+
+[ "$(git status --porcelain)" ] && DIRTY=1 || DIRTY=
+[ "$DIRTY" ] && git stash save -a -q
+if [ "$BRANCH" != $SRC_BRANCH ]
+then
+    git checkout -q $SRC_BRANCH
+fi
+./configure
+make -s gyb
+
+TARGET="$1"
+KEEP=Sources
+PULL="$SRCS"
+STATE=
+for i in $(eval echo "{2..$#}")
+do
+    case "$i" in
+    -k)
+        STATE=KEEP
+        ;;
+    -p)
+        STATE=PULL
+        ;;
+    -r)
+        STATE=README
+        ;;
+    -R)
+        STATE=README_TEXT
+        ;;
+    *)
+        case "$STATE" in
+        KEEP)
+            KEEP="$KEEP"$'\n'"$i"
+            ;;
+        PULL)
+            PULL="$PULL"$'\n'"$i"
+            ;;
+        README)
+            cp "$i" README.md
+            KEEP="$KEEP"$'\n'README.md
+            STATE=
+            ;;
+        README_TEXT)
+            echo "$i" >README.md
+            KEEP="$KEEP"$'\n'README.md
+            STATE=
+            ;;
+        *)
+            continue
+            ;;
+        esac
+        ;;
+    esac
+done
+
+echo "$PULL"
+
+make -s "$TARGET"
+git add $KEEP
+git stash save -q
+if [ -n "$(git rev-parse -q --verify $DEST_BRANCH)" ]
+then
+    git checkout -q $DEST_BRANCH
+else
+    git checkout -q --orphan $DEST_BRANCH
+fi
+git reset -q
+git clean -dfxq
+git stash pop -q
+
+git checkout $SRC_BRANCH "$PULL"

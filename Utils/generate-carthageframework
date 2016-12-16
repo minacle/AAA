@@ -1,0 +1,15 @@
+#!/bin/bash
+
+SELF_DIR="$(dirname $BASH_SOURCE)"
+SELF_NAME="$(basename $BASH_SOURCE)"
+
+SRC_BRANCH=dev
+DEST_BRANCH=carthage
+
+. "$SELF_DIR/_generate-init" gyb -k AAA.xcodeproj -p LICENSE
+
+git add .
+carthage build --no-skip-current >/dev/null
+carthage archive >/dev/null
+
+. "$SELF_DIR/_generate-fine"
