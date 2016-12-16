@@ -18,15 +18,19 @@ make -s gyb
 TARGET="$1"
 KEEP=Sources
 PULL=
+SAVE=
 STATE=
-for i in $(eval echo "{2..$#}")
+for arg in "${@:2}"
 do
-    case "$i" in
+    case "$arg" in
     -k)
         STATE=KEEP
         ;;
     -p)
         STATE=PULL
+        ;;
+    -s)
+        STATE=SAVE
         ;;
     -r)
         STATE=README
@@ -37,18 +41,21 @@ do
     *)
         case "$STATE" in
         KEEP)
-            KEEP="$KEEP '$i'"
+            KEEP="$KEEP '$arg'"
             ;;
         PULL)
-            PULL="$PULL '$i'"
+            PULL="$PULL '$arg'"
+            ;;
+        SAVE)
+            SAVE="$SAVE '$arg'"
             ;;
         README)
-            cp "$i" README.md
+            cp "$arg" README.md
             KEEP="$KEEP README.md"
             STATE=
             ;;
         README_TEXT)
-            echo "$i" >README.md
+            echo "$arg" >README.md
             KEEP="$KEEP README.md"
             STATE=
             ;;
@@ -60,7 +67,8 @@ do
     esac
 done
 
-make -s "$TARGET"
+make -s "$TARGET" >/dev/null
+echo "$KEEP"
 echo "$KEEP" | xargs git add
 git stash save -q
 if [ -n "$(git rev-parse -q --verify $DEST_BRANCH)" ]
@@ -80,10 +88,20 @@ _generate
 
 git commit -m "auto-generated commit by '$SELF_NAME' using $(git rev-parse $SRC_BRANCH)"
 
+if [ -n "$SAVE" ]
+then
+    echo "$SAVE" | xargs git add
+    git stash save -q
+fi
 git checkout -q $BRANCH
 git reset -q
 git clean -dfxq
 git checkout -q -- .
+if [ -n "$SAVE" ]
+then
+    git stash pop -q
+    echo "$SAVE" | xargs git reset --
+fi
 [ "$DIRTY" ] && git stash pop -q
 
 cd "$CWD"
