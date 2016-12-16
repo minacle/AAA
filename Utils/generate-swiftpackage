@@ -9,7 +9,8 @@ DESTINATION_BRANCH='swiftpm'
 
 cd "$ROOT"
 
-git stash save -a -q
+$(test "$(git status --porcelain)") && DIRTY=1 || DIRTY=
+[ "$DIRTY" ] && git stash save -a -q
 if [ "$BRANCH" != $SOURCE_BRANCH ]
 then
     git checkout -q $SOURCE_BRANCH
@@ -36,6 +37,6 @@ git checkout -q $BRANCH
 git reset -q
 git clean -dfxq
 git checkout -q -- .
-git stash pop -q
+[ "$DIRTY" ] && git stash pop -q
 
 cd "$CWD"
