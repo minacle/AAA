@@ -56,11 +56,31 @@ public struct AAA {
         }
         return o
     }
+
+    /// Return collection if type of `Any` is a collection.
+    fileprivate var collection: AnyCollection<Any>? {
+        guard o is Collection else {
+            return nil
+        }
+        return AnyCollection<Any>(o as! [Any])
+    }
+
+    /// Return array if type of `Any` is an array.
+    fileprivate var array: [Any]? {
+        return o as? [Any]
+    }
+
+    /// Return dictionary if type of `Any` is a dictionary.
+    fileprivate var dictionary: [AnyHashable: Any]? {
+        return o as? [AnyHashable: Any]
+    }
 }
 
 extension AAA: ExpressibleByArrayLiteral {
 
-    public init(arrayLiteral elements: Any...) {
+    public typealias Element = Any
+
+    public init(arrayLiteral elements: Element...) {
         self.init(elements)
     }
 }
@@ -74,8 +94,11 @@ extension AAA: ExpressibleByBooleanLiteral {
 
 extension AAA: ExpressibleByDictionaryLiteral {
 
-    public init(dictionaryLiteral elements: (AnyHashable, Any)...) {
-        var d = [AnyHashable: Any]()
+    public typealias Key = AnyHashable
+    public typealias Value = Any
+
+    public init(dictionaryLiteral elements: (Key, Value)...) {
+        var d = [Key: Value]()
         for (k, v) in elements {
             d[k] = v
         }
@@ -116,5 +139,26 @@ extension AAA: ExpressibleByStringLiteral {
 
     public init(unicodeScalarLiteral value: StringLiteralType) {
         self.init(value)
+    }
+}
+
+extension AAA: Collection {
+
+    public typealias Index = AnyIndex
+
+    public var startIndex: Index {
+        return collection?.startIndex ?? Index(0)
+    }
+
+    public var endIndex: Index {
+        return collection?.endIndex ?? Index(0)
+    }
+
+    public func index(after i: Index) -> Index {
+        return collection?.index(after: i) ?? Index(0)
+    }
+
+    public subscript(i: Index) -> Element {
+        return collection?[i] ?? ()
     }
 }
