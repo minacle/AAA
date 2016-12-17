@@ -1,0 +1,99 @@
+#!/bin/bash
+
+SELF_DIR="$(dirname $BASH_SOURCE)"
+SELF_NAME="$(basename $BASH_SOURCE)"
+
+SRC_BRANCH=dev
+DEST_BRANCH=cocoapods
+
+if [ -z "$VERSION" ]
+then
+    VERSION="$1"
+fi
+
+if [ -z "$VERSION" ]
+then
+    >&2 echo "usage:  $SELF_NAME <VERSION>"
+    exit 1
+fi
+
+_generate() {
+    __genspec() {
+        echo -n
+        echo "Pod::Spec.new do |spec|"
+        PAD_WIDTH=0
+        for arg in "$@"
+        do
+            if [[ "$arg" != -* ]]
+            then
+                local len=${#arg}
+                [ $PAD_WIDTH -lt $len ] && PAD_WIDTH=$len
+            fi
+        done
+        STATE=
+        while [ $# -gt 0 ]
+        do
+            case "$1" in
+            -*)
+                STATE="${1:1}"
+                if [[ "$STATE" == *deployment-target ]]
+                then
+                    STATE="${STATE/-/.}"
+                fi
+                STATE="${STATE//-/_}"
+                shift
+                case "$STATE" in
+                -|'')
+                    ;;
+                authors)
+                    AUTHOR_NAME_PAD_WIDTH=0
+                    AUTHORS_COUNT=0
+                    for arg in "$@"
+                    do
+                        [[ "$arg" == -* ]] && break
+                        local len=${#arg}
+                        [ $AUTHOR_NAME_PAD_WIDTH -lt $len ] && AUTHOR_NAME_PAD_WIDTH=$len
+                        ((AUTHORS_COUNT++))
+                    done
+                    printf "  spec.%${PAD_WIDTH}s = {\n" "$STATE"
+                    for i in "$(seq 1 $AUTHORS_COUNT)"
+                    do
+                        printf "    '%${AUTHOR_NAME_PAD_WIDTH}s' => '%s'" "${1% }" "${1/% */}"
+                        [ $i -ne $AUTHORS_COUNT ] && echo , || echo
+                    done
+                    echo '  }'
+                    ;;
+                license)
+                    printf "  spec.%${PAD_WIDTH}s = "'{\n    :type => "%s"\n  }\n' "$STATE" "$1"
+                    ;;
+                source)
+                    printf "  spec.%${PAD_WIDTH}s = \n" "$STATE"
+                    printf "    :%-4s => "'"%s"' "${1%% }" "${1/%* /}"
+                    case "${1%% }" in
+                    git|svn)
+                        printf ",\n    :%-4s => "'"v#{spec.version}"' tag
+                        ;;
+                    hg)
+                        printf ",\n    :%-4s => "'"v#{spec.version}"' revision
+                        ;;
+                    *)
+                        echo
+                        ;;
+                    esac
+                    echo '  }'
+                    ;;
+                *)
+                    printf "  spec.%${PAD_WIDTH}s = "'"%s"\n' "$STATE" "$1"
+                    ;;
+                esac
+                ;;
+            esac
+            shift
+        done
+        echo end
+    }
+    __genspec -name AAA -version "$VERSION" -authors 'Mayu Laierlence minacle@live.com' -social-media-url https://twitter.com/mlrlnc -license MIT -homepage https://github.com/minacle/AAA -source 'git https://github.com/minacle/AAA.git' -summary 'An Any Accessory' -ios-deployment-target 8.0 -osx-deployment-target 10.10 -tvos-deployment-target 9.0 -watchos-deployment-target 2.0 >AAA.podspec
+    git add .
+}
+
+. "$SELF_DIR/_generate" xcodeproj -k AAA.xcodeproj -p LICENSE
