@@ -1,6 +1,6 @@
 # AAA
 
-[![release](https://img.shields.io/github/release/minacle/AAA.svg?maxAge=600)](https://github.com/minacle/AAA/releases) [![Travis](https://img.shields.io/travis/minacle/AAA/dev.svg?maxAge=600)](https://travis-ci.org/minacle/AAA) [![license](https://img.shields.io/github/license/minacle/AAA.svg?maxAge=43200)](https://github.com/minacle/AAA/blob/master/LICENSE) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?maxAge=604800)](https://github.com/Carthage/Carthage)
+[![release](https://img.shields.io/github/release/minacle/AAA.svg?maxAge=600)](https://github.com/minacle/AAA/releases) [![Travis](https://img.shields.io/travis/minacle/AAA/dev.svg?maxAge=600)](https://travis-ci.org/minacle/AAA) [![license](https://img.shields.io/badge/license-MIT-lightgrey.svg?maxAge=43200)](https://github.com/minacle/AAA/blob/master/LICENSE) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?maxAge=604800)](https://github.com/Carthage/Carthage)
 
 > An `Any` Accessory.
 
