@@ -19,17 +19,7 @@ fi
 
 _generate() {
     __genspec() {
-        echo -n
         echo "Pod::Spec.new do |spec|"
-        PAD_WIDTH=0
-        for arg in "$@"
-        do
-            if [[ "$arg" != -* ]]
-            then
-                local len=${#arg}
-                [ $PAD_WIDTH -lt $len ] && PAD_WIDTH=$len
-            fi
-        done
         STATE=
         while [ $# -gt 0 ]
         do
@@ -46,35 +36,35 @@ _generate() {
                 -|'')
                     ;;
                 authors)
-                    AUTHOR_NAME_PAD_WIDTH=0
                     AUTHORS_COUNT=0
                     for arg in "$@"
                     do
-                        [[ "$arg" == -* ]] && break
-                        local len=${#arg}
-                        [ $AUTHOR_NAME_PAD_WIDTH -lt $len ] && AUTHOR_NAME_PAD_WIDTH=$len
                         ((AUTHORS_COUNT++))
                     done
-                    printf "  spec.%${PAD_WIDTH}s = {\n" "$STATE"
+                    echo "  spec.$STATE = {"
                     for i in "$(seq 1 $AUTHORS_COUNT)"
                     do
-                        printf "    '%${AUTHOR_NAME_PAD_WIDTH}s' => '%s'" "${1% }" "${1/% */}"
+                        echo -n "    \"${1% *}\" => \"${1##* }\""
                         [ $i -ne $AUTHORS_COUNT ] && echo , || echo
                     done
                     echo '  }'
                     ;;
                 license)
-                    printf "  spec.%${PAD_WIDTH}s = "'{\n    :type => "%s"\n  }\n' "$STATE" "$1"
+                    echo "  spec.$STATE = {"
+                    echo "    :type => \"$1\""
+                    echo '  }'
                     ;;
                 source)
-                    printf "  spec.%${PAD_WIDTH}s = \n" "$STATE"
-                    printf "    :%-4s => "'"%s"' "${1%% }" "${1/%* /}"
-                    case "${1%% }" in
+                    echo "  spec.$STATE = {"
+                    echo -n "    :${1%% *} => \"${1% *}\""
+                    case "${1%% *}" in
                     git|svn)
-                        printf ",\n    :%-4s => "'"v#{spec.version}"' tag
+                        echo ,
+                        echo '    :tag => "v#{spec.version}"'
                         ;;
                     hg)
-                        printf ",\n    :%-4s => "'"v#{spec.version}"' revision
+                        echo ,
+                        echo '    :revision => "v#{spec.version}"'
                         ;;
                     *)
                         echo
@@ -83,7 +73,7 @@ _generate() {
                     echo '  }'
                     ;;
                 *)
-                    printf "  spec.%${PAD_WIDTH}s = "'"%s"\n' "$STATE" "$1"
+                    echo "  spec.$STATE = \"$1\""
                     ;;
                 esac
                 ;;
