@@ -13,7 +13,7 @@ You probably encountered at least once the situation that upcasted `[Any]`, `[An
 ```swift
 func tion(_ anAny: Any) -> Int {
     var anArray: [Int]?
-    var aDictionary: [String: Int]?
+    var aDictionary: [String: Any]?
     var result = 0
     if anAny is [Int] {
         anArray = anAny as! [Int]
@@ -25,7 +25,7 @@ func tion(_ anAny: Any) -> Int {
         result = ((anArray[3] as? [Int])?[9] as? [Int])?[27]? ?? 0
     }
     else if let aDictionary = aDictionary {
-        result = ((aDictionary["3"] as? [String: Int])?["9"] as? [String: Int])?["27"]? ?? 0
+        result = (aDictionary["3"] as? [String: [String: Int]])?["9"]?["27"]? ?? 0
     }
     return result
 }
