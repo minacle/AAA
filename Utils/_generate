@@ -80,7 +80,7 @@ fi
 git reset
 git clean -dfx
 SRCS="$(git ls-tree -r --name-only stash Sources | sed '/\.gyb$/d')"
-echo "$KEEP" | xargs git checkout stash -- "$SRCS"
+echo "$KEEP"　"$SRCS" | xargs git checkout stash --
 
 git stash drop
 echo "$PULL" | xargs git checkout $SRC_BRANCH --
