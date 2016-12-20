@@ -39,6 +39,10 @@ _generate() {
                     AUTHORS_COUNT=0
                     for arg in "$@"
                     do
+                        if [[ "$arg" == -* ]]
+                        then
+                            break
+                        fi
                         ((AUTHORS_COUNT++))
                     done
                     echo "  spec.$STATE = {"
