@@ -70,6 +70,7 @@ done
 make -s "$TARGET" >/dev/null
 echo "$KEEP" | xargs git add
 git stash save
+
 if [ -n "$(git rev-parse -q --verify $DEST_BRANCH)" ]
 then
     git checkout $DEST_BRANCH
@@ -78,11 +79,10 @@ else
 fi
 git reset
 git clean -dfx
-git stash show -p | git apply
-git stash drop
 
-SRCS="$(git ls-tree -r --name-only $SRC_BRANCH Sources | sed '/\.gyb$/d')"
-echo "$PULL" | xargs git checkout $SRC_BRANCH "$SRCS"
+SRCS="$(git ls-tree -r --name-only stash Sources | sed '/\.gyb$/d')"
+echo "$PULL" | xargs git checkout stash -- "$SRCS"
+git stash pop
 
 _generate
 
