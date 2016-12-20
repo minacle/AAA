@@ -86,4 +86,4 @@ _generate() {
     git add .
 }
 
-. "$SELF_DIR/_generate" xcodeproj -k AAA.xcodeproj -p LICENSE
+. "$SELF_DIR/_generate" gyb -p LICENSE
