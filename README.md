@@ -1,6 +1,6 @@
 # AAA
 
-[![release](https://img.shields.io/github/release/minacle/AAA.svg?maxAge=600)](https://github.com/minacle/AAA/releases) [![Travis](https://img.shields.io/travis/minacle/AAA/dev.svg?maxAge=600)](https://travis-ci.org/minacle/AAA) [![license](https://img.shields.io/badge/license-MIT-lightgrey.svg?maxAge=43200)](https://github.com/minacle/AAA/blob/master/LICENSE) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?maxAge=604800)](https://github.com/Carthage/Carthage)
+[![release](https://img.shields.io/github/release/minacle/AAA.svg?maxAge=600)](https://github.com/minacle/AAA/releases) [![Travis](https://img.shields.io/travis/minacle/AAA/dev.svg?maxAge=600)](https://travis-ci.org/minacle/AAA) [![license](https://img.shields.io/badge/license-MIT-lightgrey.svg?maxAge=43200)](https://github.com/minacle/AAA/blob/master/LICENSE) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?maxAge=604800)](https://github.com/Carthage/Carthage) ![platform](https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20tvOS%20%7C%20watchOS%20%7C%20Linux-393939.svg?maxAge=604800)
 
 > An `Any` Accessory.
 
@@ -35,21 +35,29 @@ No, stop! Please have mercy on me!
 
 ## Okay. I'll show some mercy to you.
 
-**Package.swift** (Using *Swift Package Manager*; This project is now development state)
+- **Package.swift** (Using *[Swift Package Manager](https://swift.org/package-manager/)*)
 ```swift
 import PackageDescription
 
 let package = Package(
     name: "AWESOME_APP",
     dependencies: [
-        .Package(url: "https://github.com/minacle/AAA.git", versions: Version(0, 5, 0)..<Version(0, .max, .max)),
+        .Package(url: "https://github.com/minacle/AAA.git", majorVersion: 1),
     ]
 )
 ```
 
-**Cartfile** (Using *Carthage*; This project is now development state)
+- **Cartfile** (Using *[Carthage](https://github.com/Carthage/Carthage)*)
 ```
-github "minacle/AAA" ~> 0.5
+github "minacle/AAA" ~> 1.0
+```
+
+- **Podfile** (Using *[CocoaPods](https://cocoapods.org)*)
+```ruby
+target 'AWESOME_APP' do
+  use_frameworks!
+  pod 'AAA', '~> 1.0'
+end
 ```
 
 ...Now, we have `AAA`. Let's try it!
