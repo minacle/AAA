@@ -16,7 +16,7 @@ import Foundation // 3.0.2
         "Date": {},
         "DateComponents": {},
         "DateInterval": {
-            "available": "OSX 10.12, *",
+            "available": "OSX 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *",
         },
         "DistributedNotificationCenter.CenterType": {
             "supported": {
@@ -61,7 +61,7 @@ import Foundation // 3.0.2
             },
         },
         "Measurement": {
-            "available": "OSX 10.12, *",
+            "available": "OSX 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *",
         },
         "ProcessInfo.ActivityOptions": {
             "unsupported": {
@@ -239,7 +239,7 @@ import Foundation // 3.0.2
         "Notification": {},
         "POSIXError": {},
         "PersonNameComponents": {
-            "available": "OSX 10.11, *",
+            "available": "OSX 10.11, iOS 9.0, *",
         },
         "Progress.FileOperationKind": {
             "unsupported": {
