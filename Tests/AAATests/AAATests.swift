@@ -26,7 +26,7 @@ class AAATests: XCTestCase {
         XCTAssertNotNil(a[1]["id"][])
         XCTAssertNil(a[2]["id"][])
     }
-    
+
     func testNilLiteral() {
         let a: AAA = nil
         XCTAssert(a[] == nil)
@@ -66,22 +66,6 @@ class AAATests: XCTestCase {
         XCTAssertEqual(a[0][0][] as! FloatLiteralType, 1.0)
     }
 
-    class AClass {}
-
-    func testObject() {
-        let a = AAA(AClass())
-        XCTAssertNotNil(a.object)
-        XCTAssertNil(a.value)
-    }
-
-    struct AStruct {}
-
-    func testValue() {
-        let a = AAA(AStruct())
-        XCTAssertNil(a.object)
-        XCTAssertNotNil(a.value)
-    }
-
     func testFor() {
         let a: AAA = [0, "a", [1], ["b": true]]
         var index = 0
@@ -105,7 +89,7 @@ class AAATests: XCTestCase {
 
 extension AAATests {
 
-    static var allTests : [(String, (AAATests) -> () throws -> Void)] {
+    static var allTests: [(String, (AAATests) -> () throws -> ())] {
         return [
             ("testBasics", testBasics),
             ("testNilLiteral", testNilLiteral),
@@ -115,9 +99,7 @@ extension AAATests {
             ("testStringLiteral", testStringLiteral),
             ("testArrayLiteral", testArrayLiteral),
             ("testDictionaryLiteral", testDictionaryLiteral),
-            ("testObject", testObject),
-            ("testValue", testValue),
-            ("testFor", testFor),
+            ("testFor", testFor)
         ]
     }
 }
