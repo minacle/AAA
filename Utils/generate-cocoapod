@@ -45,7 +45,12 @@ _generate() {
                     for i in "$(seq 1 $AUTHORS_COUNT)"
                     do
                         echo -n "    \"${1% *}\" => \"${1##* }\""
-                        [ $i -ne $AUTHORS_COUNT ] && echo , || echo
+                        if [ $i -ne $AUTHORS_COUNT ]
+                        then
+                            echo ,
+                        else
+                            echo
+                        fi
                     done
                     echo '  }'
                     ;;
