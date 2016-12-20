@@ -68,7 +68,6 @@ do
 done
 
 make -s "$TARGET" >/dev/null
-echo "$KEEP"
 echo "$KEEP" | xargs git add
 git stash save
 if [ -n "$(git rev-parse -q --verify $DEST_BRANCH)" ]
