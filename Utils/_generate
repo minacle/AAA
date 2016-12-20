@@ -95,7 +95,7 @@ then
     echo "$SAVE" | xargs git add
     git stash save
 fi
-git checkout $BRANCHs
+git checkout $BRANCH
 git reset
 git clean -dfx
 git checkout -- .
