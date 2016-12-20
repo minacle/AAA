@@ -7,10 +7,10 @@ CWD="$(pwd)"
 cd "$ROOT"
 
 [ "$(git status --porcelain)" ] && DIRTY=1 || DIRTY=
-[ "$DIRTY" ] && git stash save -a -q
+[ "$DIRTY" ] && git stash save -a
 if [ "$BRANCH" != $SRC_BRANCH ]
 then
-    git checkout -q $SRC_BRANCH
+    git checkout $SRC_BRANCH
 fi
 ./configure
 make -s gyb
@@ -70,16 +70,17 @@ done
 make -s "$TARGET" >/dev/null
 echo "$KEEP"
 echo "$KEEP" | xargs git add
-git stash save -q
+git stash save
 if [ -n "$(git rev-parse -q --verify $DEST_BRANCH)" ]
 then
-    git checkout -q $DEST_BRANCH
+    git checkout $DEST_BRANCH
 else
-    git checkout -q --orphan $DEST_BRANCH
+    git checkout --orphan $DEST_BRANCH
 fi
-git reset -q
-git clean -dfxq
-git stash pop -q
+git reset
+git clean -dfx
+git stash show -p | git apply
+git stash drop
 
 SRCS="$(git ls-tree -r --name-only $SRC_BRANCH Sources | sed '/\.gyb$/d')"
 echo "$PULL" | xargs git checkout $SRC_BRANCH "$SRCS"
@@ -91,17 +92,17 @@ git commit -m "auto-generated commit using $(git rev-parse $SRC_BRANCH)" -m "gen
 if [ -n "$SAVE" ]
 then
     echo "$SAVE" | xargs git add
-    git stash save -q
+    git stash save
 fi
-git checkout -q $BRANCH
-git reset -q
-git clean -dfxq
-git checkout -q -- .
+git checkout $BRANCH
+git reset
+git clean -dfx
+git checkout -- .
 if [ -n "$SAVE" ]
 then
-    git stash pop -q
+    git stash pop
     echo "$SAVE" | xargs git reset --
 fi
-[ "$DIRTY" ] && git stash pop -q
+[ "$DIRTY" ] && git stash pop
 
 cd "$CWD"
