@@ -4,7 +4,6 @@ Pod::Spec.new do |spec|
   spec.authors = {
     "Mayu Laierlence" => "minacle@live.com"
   }
-  spec.social_media_url = "https://twitter.com/mlrlnc"
   spec.license = {
     :type => "MIT"
   }
