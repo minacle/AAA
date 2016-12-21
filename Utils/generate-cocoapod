@@ -91,7 +91,7 @@ _generate() {
         done
         echo end
     }
-    __genspec -name AAA -version "$VERSION" -authors 'Mayu Laierlence minacle@live.com' -social-media-url https://twitter.com/mlrlnc -license MIT -homepage https://github.com/minacle/AAA -source 'git https://github.com/minacle/AAA.git' -source-files 'Sources/**/*.swift' -summary 'An Any Accessory' -ios-deployment-target 8.0 -osx-deployment-target 10.10 -tvos-deployment-target 9.0 -watchos-deployment-target 2.0 >AAA.podspec
+    __genspec -name AAA -version "$VERSION" -authors 'Mayu Laierlence minacle@live.com' -license MIT -homepage https://github.com/minacle/AAA -source 'git https://github.com/minacle/AAA.git' -source-files 'Sources/**/*.swift' -summary 'An Any Accessory' -ios-deployment-target 8.0 -osx-deployment-target 10.10 -tvos-deployment-target 9.0 -watchos-deployment-target 2.0 >AAA.podspec
     git add .
 }
 
