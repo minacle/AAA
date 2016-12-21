@@ -16,7 +16,7 @@ fi
 make -s gyb
 
 TARGET="$1"
-KEEP=Sources
+KEEP=
 PULL=
 SAVE=
 STATE=
