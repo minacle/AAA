@@ -68,7 +68,7 @@ do
 done
 
 make -s "$TARGET"
-SRCS="$(git ls-tree -r --name-only $SRC_BRANCH Sources | sed '/\.gyb$/d')"
+SRCS="$(git ls-tree -r --name-only HEAD Sources | sed '/\.gyb$/d')"
 echo "$SRCS" | xargs git add
 echo "$KEEP" | xargs git add
 git stash save
