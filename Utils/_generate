@@ -68,8 +68,14 @@ done
 
 make "$TARGET"
 SRCS="$(find Sources -name '*.swift')"
-echo "$SRCS" | xargs git add
-echo "$KEEP" | xargs git add
+if [ -n "$KEEP" ]
+then
+    echo "$KEEP" | xargs git add
+fi
+if [ -n "$SRCS" ]
+then
+    echo "$SRCS" | xargs git add
+fi
 git stash save -u -a
 
 if [ -n "$(git rev-parse -q --verify $DEST_BRANCH)" ]
@@ -80,15 +86,23 @@ else
 fi
 git clean -dfx
 git reset --hard
-echo "$KEEP" | xargs git checkout -p stash -- | git apply
-echo "$SRCS" | xargs git checkout -p stash -- | git apply
+if [ -n "$KEEP" ]
+then
+    echo "$KEEP" | xargs git checkout stash --
+    echo "$KEEP" | xargs git add
+fi
+if [ -n "$SRCS" ]
+then
+    echo "$SRCS" | xargs git checkout stash --
+    echo "$SRCS" | xargs git add
+fi
 
 git stash drop
-echo "$PULL" | xargs git checkout -p $SRC_BRANCH -- | git apply
-
-echo "$KEEP" | xargs git add
-echo "$SRCS" | xargs git add
-echo "$PULL" | xargs git add
+if [ -n "$PULL" ]
+then
+    echo "$PULL" | xargs git checkout $SRC_BRANCH --
+    echo "$PULL" | xargs git add
+fi
 
 _generate
 
