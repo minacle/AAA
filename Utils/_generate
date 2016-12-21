@@ -67,7 +67,9 @@ do
     esac
 done
 
-make -s "$TARGET" >/dev/null
+make -s "$TARGET"
+SRCS="$(git ls-tree -r --name-only $SRC_BRANCH Sources | sed '/\.gyb$/d')"
+echo "$SRCS" | xargs git add
 echo "$KEEP" | xargs git add
 git stash save
 
@@ -79,7 +81,6 @@ else
 fi
 git reset
 git clean -dfx
-SRCS="$(git ls-tree -r --name-only stash Sources | sed '/\.gyb$/d')"
 echo "$KEEP" | xargs git checkout stash --
 echo "$SRCS" | xargs git checkout stash --
 
