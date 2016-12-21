@@ -1,10 +1,9 @@
 Pod::Spec.new do |spec|
   spec.name = "AAA"
-  spec.version = "1.0"
+  spec.version = "1.0.0"
   spec.authors = {
     "Mayu Laierlence" => "minacle@live.com"
   }
-  spec.social_media_url = "https://twitter.com/mlrlnc"
   spec.license = {
     :type => "MIT"
   }
