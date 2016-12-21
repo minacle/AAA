@@ -112,7 +112,7 @@ extension DateComponentsFormatter.ZeroFormattingBehavior {
     }
 }
 
-@available(OSX 10.12, *)
+@available(OSX 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *)
 extension DateInterval {
 
     public init?(_ a: AAA) {
@@ -381,7 +381,7 @@ extension MachError {
 }
 #endif
 
-@available(OSX 10.12, *)
+@available(OSX 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *)
 extension Measurement {
 
     public init?(_ a: AAA) {
@@ -876,7 +876,7 @@ extension POSIXError {
     }
 }
 
-@available(OSX 10.11, *)
+@available(OSX 10.11, iOS 9.0, *)
 extension PersonNameComponents {
 
     public init?(_ a: AAA) {
