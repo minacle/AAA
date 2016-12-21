@@ -5,22 +5,34 @@ public struct AAA {
     private let o: Any?
 
     /// Decorate `nil` with an accessory.
-    public init() {
+    init() {
         self.o = nil
     }
 
     /// Decorate `Any` with an accessory.
     ///
-    /// - Parameter o: `Any`thing.
-    public init(_ o: Any?) {
+    /// - Parameter o:
+    ///   `Any`thing.
+    init(_ o: Any?) {
         self.o = o
     }
 
-    public subscript() -> Any? {
+    /// Get copy of `Any`.
+    ///
+    /// - Returns:
+    ///   The copy of value.
+    subscript() -> Any? {
         return o
     }
 
-    public subscript(v: Any) -> AAA {
+    /// Explore `Any` with given index or key.
+    ///
+    /// - Parameter v:
+    ///   Index of array or key of dictionary.
+    ///
+    /// - Returns:
+    ///   The item that capsuled by `AAA`.
+    subscript(v: Any) -> AAA {
         if let o = o as? [Any] {
             if let v = v as? Int {
                 guard v < o.endIndex else {
@@ -35,26 +47,6 @@ public struct AAA {
             }
         }
         return AAA()
-    }
-
-    /// Return object if type of `Any` is an object.
-    public var object: AnyObject? {
-        guard let o = o, type(of: o) is AnyClass else {
-            return nil
-        }
-        #if os(Linux)
-            return o as? AnyObject
-        #else
-            return o as AnyObject
-        #endif
-    }
-
-    /// Return value if type of `Any` is a value.
-    public var value: Any? {
-        guard let o = o, !(type(of: o) is AnyClass) else {
-            return nil
-        }
-        return o
     }
 
     /// Return collection if type of `Any` is a collection.
