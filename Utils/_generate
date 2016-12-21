@@ -66,8 +66,8 @@ do
     esac
 done
 
-make -s "$TARGET"
-git stash save -a
+make "$TARGET"
+git stash save -a -u
 
 if [ -n "$(git rev-parse -q --verify $DEST_BRANCH)" ]
 then
@@ -75,11 +75,18 @@ then
 else
     git checkout --orphan $DEST_BRANCH
 fi
-echo "$KEEP" | xargs git checkout stash --
-git ls-tree -r --name-only stash Sources | sed '/\.gyb$/d' | xargs git checkout stash --
+git clean -dfx
+git reset --hard
+SRCS="$(git ls-tree -r --name-only stash Sources | sed '/\.gyb$/d')"
+echo "$KEEP" | xargs git checkout -p stash --
+echo "$SRCS" | xargs git checkout -p stash --
 
 git stash drop
-echo "$PULL" | xargs git checkout $SRC_BRANCH --
+echo "$PULL" | xargs git checkout -p $SRC_BRANCH --
+
+echo "$KEEP" | xargs git add
+echo "$SRCS" | xargs git add
+echo "$PULL" | xargs git add
 
 _generate
 
@@ -91,8 +98,8 @@ then
     git stash save
 fi
 git checkout $BRANCH
-git reset
 git clean -dfx
+git reset --hard
 git checkout -- .
 if [ -n "$SAVE" ]
 then
