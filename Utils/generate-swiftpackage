@@ -10,4 +10,4 @@ _generate() {
     git add .
 }
 
-. "$SELF_DIR/_generate" gyb -p LICENSE Package.swift
+. "$SELF_DIR/_generate" gyb -p LICENSE CHANGELOG.md Package.swift

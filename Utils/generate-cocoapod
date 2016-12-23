@@ -95,4 +95,4 @@ _generate() {
     git add .
 }
 
-. "$SELF_DIR/_generate" gyb -p LICENSE
+. "$SELF_DIR/_generate" gyb -p LICENSE CHANGELOG.md

@@ -12,4 +12,4 @@ _generate() {
     carthage archive >/dev/null
 }
 
-. "$SELF_DIR/_generate" xcodeproj -k AAA.xcodeproj -p LICENSE -s AAA.framework.zip
+. "$SELF_DIR/_generate" xcodeproj -k AAA.xcodeproj -p LICENSE CHANGELOG.md -s AAA.framework.zip
