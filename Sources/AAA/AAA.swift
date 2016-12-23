@@ -5,7 +5,7 @@ public struct AAA {
     private let o: Any?
 
     /// Decorate `nil` with an accessory.
-    init() {
+    public init() {
         self.o = nil
     }
 
@@ -13,7 +13,7 @@ public struct AAA {
     ///
     /// - Parameter o:
     ///   `Any`thing.
-    init(_ o: Any?) {
+    public init(_ o: Any?) {
         self.o = o
     }
 
@@ -21,7 +21,7 @@ public struct AAA {
     ///
     /// - Returns:
     ///   The copy of value.
-    subscript() -> Any? {
+    public subscript() -> Any? {
         return o
     }
 
@@ -32,7 +32,7 @@ public struct AAA {
     ///
     /// - Returns:
     ///   The item that capsuled by `AAA`.
-    subscript(v: Any) -> AAA {
+    public subscript(v: Any) -> AAA {
         if let o = o as? [Any] {
             if let v = v as? Int {
                 guard v < o.endIndex else {
