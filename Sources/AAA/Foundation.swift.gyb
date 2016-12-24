@@ -369,6 +369,8 @@ import Foundation // 3.0.2
 % end  # if
 extension ${type} {
 
+    /// Take off an accessory and cast `Any` to
+    /// `${type}`.
     public init?(_ a: AAA) {
         guard let o = a[] as? ${type} else {
             return nil
