@@ -72,6 +72,10 @@ extension AAA: ExpressibleByArrayLiteral {
 
     public typealias Element = Any
 
+    /// Decorate `Array` with an accessory.
+    ///
+    /// - Parameter elements:
+    ///   `Any` items.
     public init(arrayLiteral elements: Element...) {
         self.init(elements)
     }
@@ -79,6 +83,10 @@ extension AAA: ExpressibleByArrayLiteral {
 
 extension AAA: ExpressibleByBooleanLiteral {
 
+    /// Decorate `Bool` with an accessory.
+    ///
+    /// - Parameter value:
+    ///   `True` or `False`.
     public init(booleanLiteral value: BooleanLiteralType) {
         self.init(value)
     }
@@ -89,6 +97,10 @@ extension AAA: ExpressibleByDictionaryLiteral {
     public typealias Key = AnyHashable
     public typealias Value = Any
 
+    /// Decorate `Dictionary` with an accessory.
+    ///
+    /// - Parameter elements:
+    ///   Key-Value pairs.
     public init(dictionaryLiteral elements: (Key, Value)...) {
         var d = [Key: Value]()
         for (k, v) in elements {
@@ -100,6 +112,10 @@ extension AAA: ExpressibleByDictionaryLiteral {
 
 extension AAA: ExpressibleByFloatLiteral {
 
+    /// Decorate `Float` with an accessory.
+    ///
+    /// - Parameter value:
+    ///   A real number.
     public init(floatLiteral value: FloatLiteralType) {
         self.init(value)
     }
@@ -107,6 +123,10 @@ extension AAA: ExpressibleByFloatLiteral {
 
 extension AAA: ExpressibleByIntegerLiteral {
 
+    /// Decorate `Float` with an accessory.
+    ///
+    /// - Parameter value:
+    ///   An integer.
     public init(integerLiteral value: IntegerLiteralType) {
         self.init(value)
     }
@@ -114,6 +134,7 @@ extension AAA: ExpressibleByIntegerLiteral {
 
 extension AAA: ExpressibleByNilLiteral {
 
+    /// Decorate `nil` with an accessory.
     public init(nilLiteral _: ()) {
         self.init()
     }
@@ -121,14 +142,26 @@ extension AAA: ExpressibleByNilLiteral {
 
 extension AAA: ExpressibleByStringLiteral {
 
+    /// Decorate `String` with an accessory.
+    ///
+    /// - Parameter value:
+    ///   A string.
     public init(extendedGraphemeClusterLiteral value: StringLiteralType) {
         self.init(value)
     }
 
+    /// Decorate `String` with an accessory.
+    ///
+    /// - Parameter value:
+    ///   A string.
     public init(stringLiteral value: StringLiteralType) {
         self.init(value)
     }
 
+    /// Decorate `String` with an accessory.
+    ///
+    /// - Parameter value:
+    ///   A string.
     public init(unicodeScalarLiteral value: StringLiteralType) {
         self.init(value)
     }
@@ -138,18 +171,37 @@ extension AAA: Collection {
 
     public typealias Index = AnyIndex
 
+    /// First index of `Collection`.
+    ///
+    /// - Returns:
+    ///   `0` if `Any` is not `Collection`.
     public var startIndex: Index {
         return collection?.startIndex ?? Index(0)
     }
 
+    /// Last index of `Collection`.
+    ///
+    /// - Returns:
+    ///   `0` if `Any` is not `Collection`.
     public var endIndex: Index {
         return collection?.endIndex ?? Index(0)
     }
 
+    /// Next index of `i` at `Collection`.
+    ///
+    /// - Returns:
+    ///   `0` if `Any` is not `Collection`.
     public func index(after i: Index) -> Index {
         return collection?.index(after: i) ?? Index(0)
     }
 
+    /// Explore `Collection` with given index.
+    ///
+    /// - Parameter i:
+    ///   Index of `Collection`.
+    ///
+    /// - Returns:
+    ///   The item.
     public subscript(i: Index) -> Element {
         return collection?[i] ?? ()
     }
