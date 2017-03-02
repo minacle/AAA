@@ -1,4 +1,4 @@
-import Swift
+import Foundation
 
 /// An `Any` Accessory.
 public struct AAA {
@@ -51,7 +51,7 @@ public struct AAA {
 
     /// Return collection if type of `Any` is a collection.
     fileprivate var collection: AnyCollection<Any>? {
-        guard o is Collection else {
+        guard o is Collection || o is NSArray else {
             return nil
         }
         return AnyCollection<Any>(o as! [Any])
