@@ -1,5 +1,10 @@
 # Change log
 
+## **1.0.3** *phase13* 2017-03-02
+
+**Fix:**
+- `NSArray` is now treated as a Collection.
+
 ## **1.0.2** *phase12* 2016-12-24
 
 **Enhancement:**
