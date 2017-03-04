@@ -33,6 +33,11 @@ public struct AAA {
     /// - Returns:
     ///   The item that capsuled by `AAA`.
     public subscript(v: Any) -> AAA {
+        if let o = o as? [AnyHashable: Any] {
+            if let v = v as? AnyHashable {
+                return AAA(o[v])
+            }
+        }
         if let o = o as? [Any] {
             if let v = v as? Int {
                 guard v < o.endIndex else {
@@ -41,9 +46,15 @@ public struct AAA {
                 return AAA(o[v])
             }
         }
-        else if let o = o as? [AnyHashable: Any] {
-            if let v = v as? AnyHashable {
-                return AAA(o[v])
+        if let o = o as? NSDictionary {
+            return AAA(o.object(forKey: v))
+        }
+        if let o = o as? NSArray {
+            if let v = v as? Int {
+                guard v < o.count else {
+                    return AAA()
+                }
+                return AAA(o.object(at: v))
             }
         }
         return AAA()
@@ -51,13 +62,19 @@ public struct AAA {
 
     /// Return collection if type of `Any` is a collection.
     fileprivate var collection: AnyCollection<Any>? {
-        guard o is Collection || o is NSArray || o is NSDictionary else {
-            return nil
-        }
         if let o = o as? [AnyHashable: Any] {
             return AnyCollection<Any>(o.flatMap({(key: $0, value: $1)}))
         }
-        return AnyCollection<Any>(o as! [Any])
+        if let o = o as? [Any] {
+            return AnyCollection<Any>(o)
+        }
+        if let o = o as? NSDictionary {
+            return AnyCollection<Any>(o.flatMap({(key: $0 as! AnyHashable, value: $1)}))
+        }
+        if let o = o as? NSArray {
+            return AnyCollection<Any>(o.flatMap({$0}))
+        }
+        return nil
     }
 
     /// Return array if type of `Any` is an array.
