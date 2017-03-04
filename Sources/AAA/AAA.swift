@@ -51,8 +51,11 @@ public struct AAA {
 
     /// Return collection if type of `Any` is a collection.
     fileprivate var collection: AnyCollection<Any>? {
-        guard o is Collection || o is NSArray else {
+        guard o is Collection || o is NSArray || o is NSDictionary else {
             return nil
+        }
+        if let o = o as? [AnyHashable: Any] {
+            return AnyCollection<Any>(o.flatMap({(key: $0, value: $1)}))
         }
         return AnyCollection<Any>(o as! [Any])
     }
