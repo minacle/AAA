@@ -1,5 +1,10 @@
 # Change log
 
+## **1.0.4** *phase14* 2017-03-04
+
+**Fix:**
+- `NSDictionary` is now treated as a Collection.
+
 ## **1.0.3** *phase13* 2017-03-02
 
 **Fix:**
