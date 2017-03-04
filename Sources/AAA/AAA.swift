@@ -57,6 +57,12 @@ public struct AAA {
         if let o = o as? [AnyHashable: Any] {
             return AnyCollection<Any>(o.flatMap({(key: $0, value: $1)}))
         }
+        if let o = o as? NSArray {
+            return AnyCollection<Any>([Any](o))
+        }
+        if let o = o as? NSDictionary {
+            return AnyCollection<Any>(o.flatMap({(key: $0, value: $1)}))
+        }
         return AnyCollection<Any>(o as! [Any])
     }
 
