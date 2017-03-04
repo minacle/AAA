@@ -1,3 +1,4 @@
+import Foundation
 import XCTest
 @testable import AAA
 
@@ -66,7 +67,7 @@ class AAATests: XCTestCase {
         XCTAssertEqual(a[0][0][] as! FloatLiteralType, 1.0)
     }
 
-    func testFor() {
+    func testForArray() {
         let a: AAA = [0, "a", [1], ["b": true]]
         var index = 0
         for item in a {
@@ -85,6 +86,64 @@ class AAATests: XCTestCase {
             index += 1
         }
     }
+
+    func testForDictionary() {
+        let a: AAA = ["a": 0.0, "": ()]
+        for item in a {
+            let (key, value) = item as! (AnyHashable, Any)
+            switch key as! String {
+            case "a":
+                XCTAssertEqual(value as! FloatLiteralType, 0.0)
+            case "":
+                XCTAssert(value is ())
+            default:
+                break
+            }
+        }
+    }
+
+    func testForNSArray() {
+        let o = NSMutableArray()
+        o.add(0)
+        o.add("a")
+        o.add([1])
+        o.add(["b": true])
+        let a = AAA(o)
+        var index = 0
+        for item in a {
+            switch index {
+            case 0:
+                XCTAssertEqual(item as! IntegerLiteralType, 0)
+            case 1:
+                XCTAssertEqual(item as! StringLiteralType, "a")
+            case 2:
+                XCTAssertEqual(item as! [IntegerLiteralType], [1])
+            case 3:
+                XCTAssertEqual(item as! [StringLiteralType: BooleanLiteralType], ["b": true])
+            default:
+                break
+            }
+            index += 1
+        }
+    }
+
+    func testForNSDictionary() {
+        let o = NSMutableDictionary()
+        o.setObject([1.0], forKey: "a" as NSString)
+        o.setObject(NSNull(), forKey: "" as NSString)
+        let a = AAA(o)
+        for item in a {
+            let (key, value) = item as! (AnyHashable, Any)
+            switch key as! String {
+            case "a":
+                XCTAssertEqual(value as! [FloatLiteralType], [1.0])
+            case "":
+                XCTAssertEqual(value as! NSNull, NSNull())
+            default:
+                break
+            }
+        }
+    }
 }
 
 extension AAATests {
@@ -99,7 +158,10 @@ extension AAATests {
             ("testStringLiteral", testStringLiteral),
             ("testArrayLiteral", testArrayLiteral),
             ("testDictionaryLiteral", testDictionaryLiteral),
-            ("testFor", testFor)
+            ("testForArray", testForArray),
+            ("testForDictionary", testForDictionary),
+            ("testForNSArray", testForNSArray),
+            ("testForNSDictionary", testForNSDictionary)
         ]
     }
 }
