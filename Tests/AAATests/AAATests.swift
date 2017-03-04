@@ -2,6 +2,13 @@ import Foundation
 import XCTest
 @testable import AAA
 
+// Because of Swift 3.0.2 (x86_64-unknown-linux-gnu) has a type conversion bug,
+// test cases which using NS objects are isolated.
+//
+// - Cannot cast value of type 'NSNumber' to 'Int'.
+// - Cannot cast value of type 'NSNumber' to 'Bool'.
+// - Cannot cast value of type 'NSNumber' to 'Float'.
+
 class AAATests: XCTestCase {
 
     func testBasics() {
@@ -111,18 +118,33 @@ class AAATests: XCTestCase {
         let a = AAA(o)
         var index = 0
         for item in a {
-            switch index {
-            case 0:
-                XCTAssertEqual(item as! IntegerLiteralType, 0)
-            case 1:
-                XCTAssertEqual(item as! StringLiteralType, "a")
-            case 2:
-                XCTAssertEqual(item as! [IntegerLiteralType], [1])
-            case 3:
-                XCTAssertEqual(item as! [StringLiteralType: BooleanLiteralType], ["b": true])
-            default:
-                break
-            }
+            #if os(Linux)
+                switch index {
+                case 0:
+                    XCTAssertEqual(item as! NSNumber, 0)
+                case 1:
+                    XCTAssertEqual(item as! StringLiteralType, "a")
+                case 2:
+                    XCTAssertEqual(item as! [NSNumber], [1])
+                case 3:
+                    XCTAssertEqual(item as! [StringLiteralType: NSNumber], ["b": 1])
+                default:
+                    break
+                }
+            #else
+                switch index {
+                case 0:
+                    XCTAssertEqual(item as! IntegerLiteralType, 0)
+                case 1:
+                    XCTAssertEqual(item as! StringLiteralType, "a")
+                case 2:
+                    XCTAssertEqual(item as! [IntegerLiteralType], [1])
+                case 3:
+                    XCTAssertEqual(item as! [StringLiteralType: BooleanLiteralType], ["b": true])
+                default:
+                    break
+                }
+            #endif
             index += 1
         }
     }
@@ -136,7 +158,11 @@ class AAATests: XCTestCase {
             let (key, value) = item as! (AnyHashable, Any)
             switch key as! String {
             case "a":
-                XCTAssertEqual(value as! [FloatLiteralType], [1.0])
+                #if os(Linux)
+                    XCTAssertEqual(value as! [NSNumber], [1.0])
+                #else
+                    XCTAssertEqual(value as! [FloatLiteralType], [1.0])
+                #endif
             case "":
                 XCTAssertEqual(value as! NSNull, NSNull())
             default:
