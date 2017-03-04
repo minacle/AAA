@@ -156,7 +156,7 @@ class AAATests: XCTestCase {
         let a = AAA(o)
         for item in a {
             let (key, value) = item as! (AnyHashable, Any)
-            switch key as! String {
+            switch String(describing: key) {
             case "a":
                 #if os(Linux)
                     XCTAssertEqual(value as! [NSNumber], [1.0])
