@@ -1,5 +1,16 @@
 # Change log
 
+## **1.0.5** *phase15* 2017-03-05
+
+**Fix:**
+- Swift 3.0.2 (x86_64-unknown-linux-gnu) has a type conversion bug.
+  In this fix, some avoiding codes were inserted.
+- Because of the bug, test cases which using NS objects are isolated temporally.
+  Problems due to bug:
+  - Cannot cast value of type `NSNumber` to `Int`.
+  - Cannot cast value of type `NSNumber` to `Bool`.
+  - Cannot cast value of type `NSNumber` to `Float`.
+
 ## **1.0.4** *phase14* 2017-03-04
 
 **Fix:**
