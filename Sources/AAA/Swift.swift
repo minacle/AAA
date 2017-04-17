@@ -302,18 +302,6 @@ extension Dictionary {
     }
 }
 
-extension DictionaryIndex {
-
-    /// Take off an accessory and cast `Any` to
-    /// `DictionaryIndex`.
-    public init?(_ a: AAA) {
-        guard let o = a[] as? DictionaryIndex else {
-            return nil
-        }
-        self = o
-    }
-}
-
 extension DictionaryIterator {
 
     /// Take off an accessory and cast `Any` to
@@ -1030,18 +1018,6 @@ extension Set {
     /// `Set`.
     public init?(_ a: AAA) {
         guard let o = a[] as? Set else {
-            return nil
-        }
-        self = o
-    }
-}
-
-extension SetIndex {
-
-    /// Take off an accessory and cast `Any` to
-    /// `SetIndex`.
-    public init?(_ a: AAA) {
-        guard let o = a[] as? SetIndex else {
             return nil
         }
         self = o

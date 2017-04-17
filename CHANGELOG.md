@@ -1,5 +1,13 @@
 # Change log
 
+## **1.0.7** *phase17* 2017-04-17
+
+**Spotlight:**
+- Swift 3.1
+
+**Enhancement:**
+- Support OSX 10.9
+
 ## **1.0.6** *phase16* 2017-03-05
 
 **Fix:**

@@ -38,8 +38,9 @@
          children = (
             OBJ_13,
          );
-         path = "Tests";
-         sourceTree = "<group>";
+         name = "Tests";
+         path = "";
+         sourceTree = "SOURCE_ROOT";
       };
       OBJ_13 = {
          isa = "PBXGroup";
@@ -136,6 +137,7 @@
             PRODUCT_BUNDLE_IDENTIFIER = "AAA";
             PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
             PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+            SKIP_INSTALL = "YES";
             TARGET_NAME = "AAA";
          };
          name = "Debug";
@@ -164,6 +166,7 @@
             PRODUCT_BUNDLE_IDENTIFIER = "AAA";
             PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
             PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+            SKIP_INSTALL = "YES";
             TARGET_NAME = "AAA";
          };
          name = "Release";
@@ -220,6 +223,7 @@
       OBJ_3 = {
          isa = "XCBuildConfiguration";
          buildSettings = {
+            CLANG_ENABLE_OBJC_ARC = "YES";
             COMBINE_HIDPI_IMAGES = "YES";
             COPY_PHASE_STRIP = "NO";
             DEBUG_INFORMATION_FORMAT = "dwarf";
@@ -263,6 +267,7 @@
             INFOPLIST_FILE = "AAA.xcodeproj/AAATests_Info.plist";
             LD_RUNPATH_SEARCH_PATHS = (
                "@loader_path/../Frameworks",
+               "@loader_path/Frameworks",
             );
             OTHER_LDFLAGS = (
                "$(inherited)",
@@ -288,6 +293,7 @@
             INFOPLIST_FILE = "AAA.xcodeproj/AAATests_Info.plist";
             LD_RUNPATH_SEARCH_PATHS = (
                "@loader_path/../Frameworks",
+               "@loader_path/Frameworks",
             );
             OTHER_LDFLAGS = (
                "$(inherited)",
@@ -326,6 +332,7 @@
       OBJ_4 = {
          isa = "XCBuildConfiguration";
          buildSettings = {
+            CLANG_ENABLE_OBJC_ARC = "YES";
             COMBINE_HIDPI_IMAGES = "YES";
             COPY_PHASE_STRIP = "YES";
             DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -347,7 +354,7 @@
                "watchsimulator",
             );
             SWIFT_ACTIVE_COMPILATION_CONDITIONS = "SWIFT_PACKAGE";
-            SWIFT_OPTIMIZATION_LEVEL = "-O";
+            SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
             SWIFT_VERSION = "3.0";
             USE_HEADERMAP = "NO";
          };
@@ -376,8 +383,9 @@
          children = (
             OBJ_8,
          );
-         path = "Sources";
-         sourceTree = "<group>";
+         name = "Sources";
+         path = "";
+         sourceTree = "SOURCE_ROOT";
       };
       OBJ_8 = {
          isa = "PBXGroup";
