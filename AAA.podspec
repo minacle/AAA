@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name = "AAA"
-  spec.version = "1.0.6"
+  spec.version = "1.0.7"
   spec.authors = {
     "Mayu Laierlence" => "minacle@live.com"
   }
@@ -15,7 +15,7 @@ Pod::Spec.new do |spec|
   spec.source_files = "Sources/**/*.swift"
   spec.summary = "An Any Accessory"
   spec.ios.deployment_target = "8.0"
-  spec.osx.deployment_target = "10.10"
+  spec.osx.deployment_target = "10.9"
   spec.tvos.deployment_target = "9.0"
   spec.watchos.deployment_target = "2.0"
 end
