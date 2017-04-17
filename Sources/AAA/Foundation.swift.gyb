@@ -74,6 +74,7 @@ import Foundation // 3.0.2
             },
         },
         "NSAppleEventDescriptor.SendOptions": {
+            "available": "OSX 10.11, *",
             "supported": {
                 "os": ["macOS"],
             },
@@ -89,7 +90,9 @@ import Foundation // 3.0.2
         "NSData.ReadingOptions": {},
         "NSData.SearchOptions": {},
         "NSData.WritingOptions": {},
-        "DateComponentsFormatter.ZeroFormattingBehavior": {},
+        "DateComponentsFormatter.ZeroFormattingBehavior": {
+            "available": "OSX 10.10, iOS 8.0, tvOS 8.0, watchOS 2.0, *",
+        },
         "FileManager.DirectoryEnumerationOptions": {
             "unsupported": {
                 "os": ["Linux"],
@@ -127,8 +130,9 @@ import Foundation // 3.0.2
             },
         },
         "FileManager.UnmountOptions": {
-            "unsupported": {
-                "os": ["Linux"],
+            "available": "OSX 10.11, *",
+            "supported": {
+                "os": ["macOS"],
             },
         },
         "NSFileVersion.AddingOptions": {
@@ -184,7 +188,9 @@ import Foundation // 3.0.2
                 "os": ["Linux"],
             },
         },
-        "MeasurementFormatter.UnitOptions": {},
+        "MeasurementFormatter.UnitOptions": {
+            "available": "OSX 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *",
+        },
         "NetService.Options": {
             "unsupported": {
                 "os": ["Linux"],
@@ -285,7 +291,9 @@ import Foundation // 3.0.2
             },
         },
         "URLFileResourceType": {},
-        "URLQueryItem": {},
+        "URLQueryItem": {
+            "available": "OSX 10.10, iOS 8.0, tvOS 10.0, watchOS 3.0, *",
+        },
         "URLRequest": {},
         "URLResourceKey": {},
         "URLResourceValues": {},
@@ -295,6 +303,7 @@ import Foundation // 3.0.2
             },
         },
         "URLThumbnailSizeKey": {
+            "available": "OSX 10.10, iOS 8.0, tvOS 10.0, watchOS 3.0, *",
             "unsupported": {
                 "os": ["Linux"],
             },

@@ -2,7 +2,7 @@ import Foundation
 
 /// An `Any` Accessory.
 public struct AAA {
-    private let o: Any?
+    internal let o: Any?
 
     /// Decorate `nil` with an accessory.
     public init() {
