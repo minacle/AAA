@@ -122,6 +122,7 @@ extension DateComponents {
     }
 }
 
+@available(OSX 10.10, iOS 8.0, tvOS 8.0, watchOS 2.0, *)
 extension DateComponentsFormatter.ZeroFormattingBehavior {
 
     /// Take off an accessory and cast `Any` to
@@ -259,7 +260,8 @@ extension FileManager.ItemReplacementOptions {
 }
 #endif
 
-#if !(os(Linux))
+#if os(macOS)
+@available(OSX 10.11, *)
 extension FileManager.UnmountOptions {
 
     /// Take off an accessory and cast `Any` to
@@ -464,6 +466,7 @@ extension Measurement {
     }
 }
 
+@available(OSX 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *)
 extension MeasurementFormatter.UnitOptions {
 
     /// Take off an accessory and cast `Any` to
@@ -491,6 +494,7 @@ extension NSAffineTransformStruct {
 #endif
 
 #if os(macOS)
+@available(OSX 10.11, *)
 extension NSAppleEventDescriptor.SendOptions {
 
     /// Take off an accessory and cast `Any` to
@@ -1329,6 +1333,7 @@ extension URLFileResourceType {
     }
 }
 
+@available(OSX 10.10, iOS 8.0, tvOS 10.0, watchOS 3.0, *)
 extension URLQueryItem {
 
     /// Take off an accessory and cast `Any` to
@@ -1392,6 +1397,7 @@ extension URLThumbnailDictionaryItem {
 #endif
 
 #if !(os(Linux))
+@available(OSX 10.10, iOS 8.0, tvOS 10.0, watchOS 3.0, *)
 extension URLThumbnailSizeKey {
 
     /// Take off an accessory and cast `Any` to
